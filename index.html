@@ -1,2211 +1,919 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSC Motor Company, Inc. - Pre-Owned Vehicles | Girard, IL</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-blue: #4169A0;
-            --dark-blue: #2B4976;
-            --light-blue: #6B8BB8;
-            --silver: #C0C0C0;
-            --dark-gray: #2C2C2C;
-            --medium-gray: #666666;
-            --light-gray: #F8F8F8;
-            --border-gray: #DDDDDD;
-            --white: #FFFFFF;
-            --black: #000000;
-            --accent-gold: #D4AF37;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.6;
-            color: var(--dark-gray);
-            background: var(--white);
-        }
-
-        /* Top Contact Bar */
-        .top-bar {
-            background: var(--dark-blue);
-            color: var(--white);
-            padding: 0.7rem 0;
-            font-size: 0.9rem;
-        }
-
-        .top-bar-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .top-bar a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .top-bar a:hover {
-            color: var(--accent-gold);
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        /* Header */
-        header {
-            background: var(--white);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-        }
-
-        .logo-image {
-            height: 80px;
-            width: auto;
-        }
-
-        .company-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .company-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--dark-blue);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .company-location {
-            font-size: 0.9rem;
-            color: var(--medium-gray);
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            gap: 0.3rem;
-            align-items: center;
-        }
-
-        nav a {
-            color: var(--dark-gray);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.8rem 1.2rem;
-            transition: all 0.3s;
-            cursor: pointer;
-            font-size: 0.95rem;
-            border-bottom: 3px solid transparent;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: var(--primary-blue);
-            border-bottom-color: var(--primary-blue);
-        }
-
-        .admin-btn {
-            background: var(--primary-blue);
-            color: var(--white);
-            padding: 0.8rem 1.5rem;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            margin-left: 1rem;
-        }
-
-        .admin-btn:hover {
-            background: var(--dark-blue);
-        }
-
-        /* Page Content */
-        .page-content {
-            display: none;
-        }
-
-        .page-content.active {
-            display: block;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        /* Page Title */
-        .page-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-        }
-
-        .page-title {
-            font-size: 2.2rem;
-            color: var(--dark-blue);
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-subtitle {
-            color: var(--medium-gray);
-            font-size: 1.1rem;
-        }
-
-        .title-divider {
-            width: 80px;
-            height: 4px;
-            background: var(--primary-blue);
-            margin: 1rem auto;
-        }
-
-        /* Filter Bar */
-        .filter-bar {
-            background: var(--light-gray);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-gray);
-        }
-
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .filter-group label {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-        }
-
-        .filter-group select,
-        .filter-group input {
-            padding: 0.7rem;
-            border: 1px solid var(--border-gray);
-            font-size: 0.95rem;
-            background: var(--white);
-            transition: border-color 0.3s;
-        }
-
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-        }
-
-        /* Results Count */
-        .results-info {
-            margin-bottom: 1.5rem;
-            color: var(--medium-gray);
-            font-size: 0.95rem;
-            text-align: center;
-        }
-
-        /* Inventory Grid */
-        .inventory-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .vehicle-card {
-            background: var(--white);
-            border: 1px solid var(--border-gray);
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .vehicle-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateY(-3px);
-            border-color: var(--primary-blue);
-        }
-
-        .vehicle-image-container {
-            position: relative;
-            background: var(--light-gray);
-            height: 240px;
-            overflow: hidden;
-        }
-
-        .vehicle-image-real {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .vehicle-type-badge {
-            position: absolute;
-            top: 0.8rem;
-            left: 0;
-            background: var(--primary-blue);
-            color: var(--white);
-            padding: 0.4rem 1rem;
-            font-weight: 700;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .vehicle-info {
-            padding: 1.2rem;
-        }
-
-        .vehicle-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark-blue);
-        }
-
-        .vehicle-details {
-            color: var(--medium-gray);
-            margin-bottom: 0.8rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .vehicle-price {
-            font-size: 1.6rem;
-            color: var(--primary-blue);
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .view-details-btn {
-            display: block;
-            text-align: center;
-            padding: 0.7rem;
-            background: var(--dark-gray);
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .view-details-btn:hover {
-            background: var(--primary-blue);
-        }
-
-        /* Warranty Section */
-        .warranty-section {
-            background: var(--light-gray);
-            padding: 3rem 2rem;
-            margin: 3rem 0;
-            border-top: 3px solid var(--primary-blue);
-            border-bottom: 3px solid var(--primary-blue);
-        }
-
-        .warranty-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .warranty-content h2 {
-            font-size: 2rem;
-            color: var(--dark-blue);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .warranty-content p {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .partner-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .partner-logo-container {
-            text-align: center;
-        }
-
-        .partner-logo-container p {
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--medium-gray);
-        }
-
-        .partner-logo {
-            height: 80px;
-            width: auto;
-            max-width: 200px;
-            object-fit: contain;
-        }
-
-        /* Detail Page */
-        .detail-page {
-            display: none;
-            background: var(--white);
-        }
-
-        .detail-page.active {
-            display: block;
-        }
-
-        .detail-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem 2rem 4rem;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .back-button:hover {
-            color: var(--dark-blue);
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1.3fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .detail-image-section {
-            background: var(--white);
-            border: 1px solid var(--border-gray);
-            padding: 1rem;
-        }
-
-        .detail-image {
-            width: 100%;
-            display: block;
-        }
-
-        .detail-info-section {
-            background: var(--white);
-        }
-
-        .detail-title {
-            font-size: 2.2rem;
-            color: var(--dark-blue);
-            margin-bottom: 1rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .detail-price {
-            font-size: 2.3rem;
-            color: var(--primary-blue);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--border-gray);
-        }
-
-        .specs-section {
-            margin-bottom: 2rem;
-        }
-
-        .specs-title {
-            font-size: 1.3rem;
-            color: var(--dark-blue);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .specs-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-        }
-
-        .spec-item {
-            padding: 0.9rem;
-            background: var(--light-gray);
-            border-left: 3px solid var(--primary-blue);
-        }
-
-        .spec-label {
-            font-weight: 700;
-            color: var(--dark-gray);
-            margin-bottom: 0.2rem;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
-
-        .spec-value {
-            color: var(--medium-gray);
-            font-size: 1rem;
-        }
-
-        .features-section {
-            margin: 2rem 0;
-        }
-
-        .features-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-
-        .features-list li {
-            padding: 0.6rem 0.6rem 0.6rem 2rem;
-            color: var(--dark-gray);
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        .features-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0.5rem;
-            color: var(--primary-blue);
-            font-weight: 700;
-        }
-
-        /* Payment Calculator */
-        .payment-calculator {
-            background: var(--light-gray);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border: 2px solid var(--primary-blue);
-        }
-
-        .calc-title {
-            font-size: 1.2rem;
-            color: var(--dark-blue);
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .calc-input {
-            width: 100%;
-            padding: 0.7rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--border-gray);
-            font-size: 0.95rem;
-        }
-
-        .calc-result {
-            background: var(--white);
-            padding: 1.5rem;
-            text-align: center;
-            margin-top: 1rem;
-            border: 2px solid var(--primary-blue);
-        }
-
-        .monthly-payment {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            font-weight: 700;
-            margin: 1rem 0;
-        }
-
-        .contact-buttons {
-            display: grid;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .contact-btn {
-            display: block;
-            text-align: center;
-            padding: 1rem;
-            background: var(--primary-blue);
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-
-        .contact-btn:hover {
-            background: var(--dark-blue);
-        }
-
-        /* About Content */
-        .about-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 3rem;
-        }
-
-        .about-text h3 {
-            font-size: 1.6rem;
-            color: var(--dark-blue);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .about-text p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-            color: var(--medium-gray);
-        }
-
-        .about-image {
-            width: 100%;
-            border: 3px solid var(--primary-blue);
-        }
-
-        /* Contact Grid */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact-info h3 {
-            font-size: 1.4rem;
-            color: var(--dark-blue);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .contact-info-item {
-            margin-bottom: 2rem;
-        }
-
-        .contact-info-item p {
-            font-weight: 700;
-            color: var(--dark-gray);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-info-item .info-text {
-            color: var(--medium-gray);
-            line-height: 1.6;
-            font-weight: normal;
-        }
-
-        .contact-info-item a {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-gray);
-            color: var(--white);
-            padding: 3rem 0 1.5rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            color: var(--white);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: #CCCCCC;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            line-height: 1.8;
-        }
-
-        .footer-section a:hover {
-            color: var(--white);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #444;
-            color: #999;
-        }
-
-        /* Admin Panel */
-        .admin-panel {
-            position: fixed;
-            top: 0;
-            right: -650px;
-            width: 650px;
-            height: 100vh;
-            background: var(--white);
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
-            transition: right 0.3s;
-            z-index: 2000;
-            overflow-y: auto;
-        }
-
-        .admin-panel.active {
-            right: 0;
-        }
-
-        .admin-header {
-            background: var(--dark-blue);
-            color: var(--white);
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .admin-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .close-btn {
-            background: transparent;
-            border: none;
-            color: var(--white);
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:hover {
-            color: var(--accent-gold);
-        }
-
-        .admin-tabs {
-            display: flex;
-            background: var(--light-gray);
-            border-bottom: 2px solid var(--border-gray);
-        }
-
-        .admin-tab {
-            flex: 1;
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .admin-tab.active {
-            background: var(--white);
-            color: var(--primary-blue);
-            border-bottom: 3px solid var(--primary-blue);
-        }
-
-        .admin-content {
-            padding: 2rem;
-        }
-
-        .admin-section {
-            display: none;
-        }
-
-        .admin-section.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 1.3rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.7rem;
-            border: 1px solid var(--border-gray);
-            font-size: 0.95rem;
-            font-family: inherit;
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary-blue);
-            color: var(--white);
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: var(--dark-blue);
-        }
-
-        .vehicle-list {
-            max-height: 600px;
-            overflow-y: auto;
-        }
-
-        .vehicle-item {
-            padding: 1rem;
-            border: 1px solid var(--border-gray);
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--white);
-        }
-
-        .edit-btn,
-        .delete-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            cursor: pointer;
-            margin-left: 0.5rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 0.85rem;
-        }
-
-        .edit-btn {
-            background: var(--primary-blue);
-            color: var(--white);
-        }
-
-        .edit-btn:hover {
-            background: var(--dark-blue);
-        }
-
-        .delete-btn {
-            background: #dc3545;
-            color: var(--white);
-        }
-
-        .delete-btn:hover {
-            background: #c82333;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .detail-grid,
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .specs-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features-list {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-
-            nav {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .admin-panel {
-                width: 100%;
-                right: -100%;
-            }
-
-            .inventory-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .filter-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .logo-image {
-                height: 60px;
-            }
-
-            .partner-logos {
-                gap: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSC Motor Company, Inc. – Girard, IL</title>
+<style>
+/* ================================================
+   RESET & VARIABLES
+   ================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --pb:#4169A0;
+  --db:#2B4976;
+  --dg:#2C2C2C;
+  --mg:#666;
+  --lg:#F8F8F8;
+  --bg:#DDD;
+  --w:#FFF;
+  --gold:#D4AF37;
+  --red:#e63946
+}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--dg);background:var(--w);line-height:1.6}
+a{text-decoration:none}
+button{font-family:inherit}
+img{max-width:100%;display:block}
+
+/* ================================================
+   TOP BAR – collapses to single line on mobile
+   ================================================ */
+.top-bar{background:var(--db);color:#fff;font-size:.78rem;padding:.35rem 0}
+.top-bar-inner{
+  max-width:1400px;margin:0 auto;padding:0 1rem;
+  display:flex;justify-content:space-between;align-items:center;gap:.5rem
+}
+.top-bar a{color:#fff;transition:color .2s}
+.top-bar a:hover{color:var(--gold)}
+.tb-left{display:flex;gap:1.2rem;align-items:center}
+
+/* ================================================
+   HEADER
+   ================================================ */
+header{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.1);position:sticky;top:0;z-index:1000}
+.hdr{max-width:1400px;margin:0 auto;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem}
+.logo-wrap{display:flex;align-items:center;gap:.55rem;cursor:pointer;flex-shrink:0}
+.logo-wrap img{height:60px;width:auto}
+.co-name{font-size:1rem;font-weight:700;color:var(--db);text-transform:uppercase;letter-spacing:.5px}
+.co-loc{font-size:.72rem;color:var(--mg)}
+nav{display:flex;gap:.1rem;flex-wrap:wrap;justify-content:center}
+nav a{color:var(--dg);font-weight:600;padding:.5rem .78rem;font-size:.8rem;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap}
+nav a:hover,nav a.active{color:var(--pb);border-bottom-color:var(--pb)}
+.admin-btn{background:var(--pb);color:#fff;padding:.5rem 1rem;border:none;cursor:pointer;font-weight:700;font-size:.78rem;transition:background .2s;flex-shrink:0}
+.admin-btn:hover{background:var(--db)}
+
+/* ================================================
+   PAGE SYSTEM
+   ================================================ */
+.page{display:none}.page.active{display:block}
+.container{max-width:1400px;margin:0 auto;padding:2rem 1rem}
+.ph{text-align:center;margin-bottom:1.6rem}
+.ph h1{font-size:1.85rem;color:var(--db);font-weight:700;margin-bottom:.3rem}
+.ph-div{width:58px;height:4px;background:var(--pb);margin:.55rem auto}
+.ph p{color:var(--mg);font-size:.92rem}
+
+/* ================================================
+   FILTER BAR
+   ================================================ */
+.filter-bar{background:var(--lg);border:1px solid var(--bg);padding:1rem;margin-bottom:1.2rem}
+.filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.65rem;max-width:1000px;margin:0 auto}
+.filter-group label{display:block;font-weight:600;font-size:.75rem;margin-bottom:.25rem;color:var(--dg)}
+.filter-group select,.filter-group input{width:100%;padding:.48rem .55rem;border:1px solid var(--bg);font-size:.82rem;background:#fff}
+.filter-group select:focus,.filter-group input:focus{outline:none;border-color:var(--pb)}
+.results-info{text-align:center;color:var(--mg);font-size:.8rem;margin-bottom:.8rem}
+
+/* ================================================
+   VEHICLE CARDS
+   ================================================ */
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:1.2rem}
+.v-card{background:#fff;border:1px solid var(--bg);overflow:hidden;transition:all .2s;position:relative}
+.v-card:hover{box-shadow:0 6px 16px rgba(0,0,0,.13);transform:translateY(-2px);border-color:var(--pb)}
+.v-img-wrap{position:relative;height:205px;background:var(--lg);overflow:hidden}
+.v-img-wrap img{width:100%;height:100%;object-fit:cover}
+.v-badge{position:absolute;top:.45rem;left:0;background:var(--pb);color:#fff;padding:.25rem .65rem;font-weight:700;font-size:.63rem;text-transform:uppercase;letter-spacing:.35px;z-index:1}
+.v-badge.new-badge{background:var(--red)}
+.v-info{padding:.85rem}
+.v-title{font-size:.96rem;font-weight:700;color:var(--db);margin-bottom:.25rem}
+.v-details{color:var(--mg);font-size:.75rem;line-height:1.5;margin-bottom:.45rem}
+.v-price{font-size:1.3rem;color:var(--pb);font-weight:700;margin-bottom:.65rem}
+.v-btn{display:block;width:100%;text-align:center;padding:.5rem;background:var(--dg);color:#fff;font-weight:600;font-size:.75rem;border:none;cursor:pointer;transition:background .2s}
+.v-btn:hover{background:var(--pb)}
+
+/* ================================================
+   HOME – HERO
+   ================================================ */
+.hero{position:relative;height:380px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.4)}
+.hero-inner{position:relative;z-index:1;max-width:680px;padding:0 1rem}
+.hero-inner h1{font-size:2.3rem;font-weight:700;margin-bottom:.45rem}
+.hero-inner p{font-size:1.05rem;margin-bottom:1.2rem;font-weight:300}
+.hero-cta{display:inline-block;padding:.72rem 1.9rem;background:var(--pb);color:#fff;border:none;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s}
+.hero-cta:hover{background:var(--db);transform:translateY(-2px)}
+
+/* ================================================
+   WARRANTY BANNER
+   ================================================ */
+.warranty-band{background:var(--lg);border-top:3px solid var(--pb);border-bottom:3px solid var(--pb);padding:2rem 1rem;text-align:center}
+.warranty-band h2{font-size:1.5rem;color:var(--db);margin-bottom:.45rem;font-weight:700}
+.warranty-band>p{color:var(--mg);font-size:.9rem;max-width:740px;margin:0 auto 1.4rem;line-height:1.7}
+.partner-row{display:flex;justify-content:center;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.partner-box{text-align:center}
+.partner-box .p-logo{height:62px;max-width:165px;object-fit:contain;margin:0 auto .35rem}
+.partner-box p{font-size:.74rem;color:var(--mg)}
+.partner-box strong{display:block;font-size:.82rem;color:var(--dg)}
+
+/* ================================================
+   ABOUT GRID
+   ================================================ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;max-width:1000px;margin:0 auto}
+.about-grid img{width:100%;border:3px solid var(--pb)}
+.about-text h3{font-size:1.3rem;color:var(--db);margin-bottom:.55rem;font-weight:700}
+.about-text p{color:var(--mg);line-height:1.8;margin-bottom:.6rem;font-size:.88rem}
+
+/* ================================================
+   CONTACT
+   ================================================ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;max-width:1000px;margin:0 auto}
+.contact-grid iframe{border:3px solid var(--pb);width:100%;height:350px}
+.ci-item{margin-bottom:1.2rem}
+.ci-item .ci-label{font-weight:700;color:var(--dg);margin-bottom:.22rem;font-size:.85rem}
+.ci-item .ci-val{color:var(--mg);line-height:1.7;font-size:.85rem}
+.ci-item a{color:var(--pb);font-size:1.02rem;font-weight:700}
+
+/* ================================================
+   DETAIL PAGE – IMAGE CAROUSEL
+   ================================================ */
+.detail-container{max-width:1100px;margin:0 auto;padding:1.6rem 1rem 3rem}
+.back-btn{display:inline-flex;align-items:center;gap:.3rem;color:var(--pb);font-weight:600;cursor:pointer;margin-bottom:.85rem;font-size:.82rem;background:none;border:none}
+.back-btn:hover{color:var(--db)}
+.detail-title{font-size:1.7rem;color:var(--db);font-weight:700;margin-bottom:.9rem}
+.detail-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:2rem;margin-bottom:1.8rem}
+
+/* carousel */
+.carousel{position:relative;background:#1a1a1a;border-radius:3px;overflow:hidden;user-select:none}
+.carousel-main{width:100%;aspect-ratio:4/3;object-fit:contain;display:block;cursor:pointer;background:#1a1a1a}
+.car-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);color:#fff;border:none;font-size:1.3rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:background .18s;z-index:2;line-height:1}
+.car-nav:hover{background:rgba(0,0,0,.75)}
+.car-nav.prev{left:.25rem}.car-nav.next{right:.25rem}
+.car-counter{position:absolute;bottom:.35rem;right:.4rem;background:rgba(0,0,0,.55);color:#fff;font-size:.67rem;padding:.15rem .38rem;border-radius:3px;z-index:2}
+.car-thumbs{display:flex;gap:4px;padding:8px;background:#1a1a1a;overflow-x:auto}
+.car-thumbs img{width:60px;height:45px;object-fit:cover;cursor:pointer;opacity:.6;transition:opacity .2s;border:2px solid transparent;flex-shrink:0}
+.car-thumbs img:hover,.car-thumbs img.active{opacity:1;border-color:var(--pb)}
+
+/* detail info */
+.d-price{font-size:1.9rem;color:var(--pb);font-weight:700;margin-bottom:.9rem;padding-bottom:.8rem;border-bottom:2px solid var(--bg)}
+.specs-title{font-size:.95rem;color:var(--db);font-weight:700;margin-bottom:.48rem;margin-top:.9rem}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.spec-item{padding:.55rem .6rem;background:var(--lg);border-left:3px solid var(--pb)}
+.spec-label{font-weight:700;font-size:.67rem;text-transform:uppercase;color:var(--dg);margin-bottom:.08rem}
+.spec-value{color:var(--mg);font-size:.78rem}
+.feat-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.25rem;margin-bottom:.9rem}
+.feat-list li{padding:.38rem .38rem .38rem 1.5rem;position:relative;font-size:.78rem;color:var(--dg)}
+.feat-list li:before{content:"✓";position:absolute;left:.38rem;color:var(--pb);font-weight:700}
+.d-desc{color:var(--mg);line-height:1.65;font-size:.82rem;margin-bottom:.55rem}
+
+/* payment calc */
+.calc-box{background:var(--lg);border:2px solid var(--pb);padding:1rem;margin-top:.9rem}
+.calc-box h4{text-align:center;color:var(--db);font-size:.88rem;margin-bottom:.55rem;font-weight:700}
+.calc-box label{font-size:.73rem;color:var(--dg);font-weight:600}
+.calc-box input{width:100%;padding:.42rem;border:1px solid var(--bg);margin:.2rem 0 .48rem;font-size:.8rem}
+.calc-result{background:#fff;border:2px solid var(--pb);padding:.75rem;text-align:center;margin-top:.45rem}
+.monthly{font-size:1.8rem;color:var(--pb);font-weight:700;margin:.28rem 0}
+.calc-note{font-size:.69rem;color:var(--mg)}
+.call-btn{display:block;text-align:center;padding:.68rem;background:var(--pb);color:#fff;font-weight:700;font-size:.85rem;border:none;cursor:pointer;margin-top:.9rem;transition:background .2s}
+.call-btn:hover{background:var(--db)}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+footer{background:var(--dg);color:#fff;padding:2rem 0 .8rem;margin-top:2.2rem}
+.footer-grid{max-width:1400px;margin:0 auto;padding:0 1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1.6rem;margin-bottom:1.2rem}
+.footer-grid h3{color:#fff;font-size:.88rem;margin-bottom:.5rem;font-weight:700}
+.footer-grid p,.footer-grid a{color:#bbb;font-size:.74rem;display:block;margin-bottom:.28rem;line-height:1.65;cursor:pointer}
+.footer-grid a:hover{color:#fff}
+.footer-bottom{text-align:center;padding-top:.9rem;border-top:1px solid #444;color:#666;font-size:.7rem}
+
+/* ================================================
+   LOGIN MODAL
+   ================================================ */
+.login-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;align-items:center;justify-content:center}
+.login-overlay.show{display:flex}
+.login-box{background:#fff;padding:1.8rem;width:90%;max-width:340px;text-align:center;border-radius:4px;position:relative}
+.login-box h2{color:var(--db);font-size:1.25rem;margin-bottom:.2rem}
+.login-sub{color:var(--mg);font-size:.75rem;margin-bottom:.9rem}
+.login-box input{width:100%;padding:.54rem;border:1px solid var(--bg);font-size:.88rem;margin-bottom:.55rem;border-radius:3px}
+.login-box input:focus{outline:none;border-color:var(--pb)}
+.login-err{color:var(--red);font-size:.73rem;margin-bottom:.35rem;min-height:.9rem}
+.login-btn{width:100%;padding:.58rem;background:var(--pb);color:#fff;border:none;font-weight:700;font-size:.88rem;cursor:pointer;border-radius:3px}
+.login-btn:hover{background:var(--db)}
+.login-x{position:absolute;top:.45rem;right:.55rem;background:none;border:none;color:var(--mg);font-size:1.45rem;cursor:pointer;line-height:1}
+.login-x:hover{color:var(--dg)}
+
+/* ================================================
+   ADMIN PANEL
+   ================================================ */
+.admin-panel{position:fixed;top:0;right:-680px;width:680px;height:100vh;background:#fff;box-shadow:-5px 0 22px rgba(0,0,0,.25);transition:right .28s;z-index:2000;overflow-y:auto}
+.admin-panel.open{right:0}
+.admin-hdr{background:var(--db);color:#fff;padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.admin-hdr h2{font-size:1.15rem}
+.admin-close{background:none;border:none;color:#fff;font-size:1.65rem;cursor:pointer;line-height:1}
+.admin-tabs{display:flex;background:var(--lg);border-bottom:2px solid var(--bg)}
+.admin-tab{flex:1;padding:.7rem;text-align:center;border:none;background:none;font-weight:600;font-size:.75rem;cursor:pointer;transition:all .2s}
+.admin-tab.active{background:#fff;color:var(--pb);border-bottom:3px solid var(--pb)}
+.admin-body{padding:1.2rem}
+.admin-sec{display:none}.admin-sec.active{display:block}
+.fg{margin-bottom:.82rem}
+.fg label{display:block;font-weight:600;font-size:.72rem;color:var(--dg);margin-bottom:.18rem}
+.fg input,.fg select,.fg textarea{width:100%;padding:.48rem;border:1px solid var(--bg);font-size:.8rem;font-family:inherit}
+.fg textarea{min-height:68px;resize:vertical}
+.na-row{display:flex;align-items:center;gap:.45rem;padding:.5rem .55rem;background:#eef4ff;border:2px solid var(--pb);border-radius:3px;margin-top:.12rem}
+.na-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--pb);cursor:pointer;flex-shrink:0}
+.na-row label{font-size:.8rem;font-weight:600;color:var(--db);margin:0;cursor:pointer}
+.submit-btn{width:100%;padding:.68rem;background:var(--pb);color:#fff;border:none;font-weight:700;font-size:.85rem;cursor:pointer;margin-top:.35rem}
+.submit-btn:hover{background:var(--db)}
+.v-list-item{padding:.65rem;border:1px solid var(--bg);margin-bottom:.45rem;display:flex;justify-content:space-between;align-items:center;gap:.4rem}
+.v-list-item strong{font-size:.8rem}
+.v-list-item small{color:var(--mg);font-size:.68rem}
+.btn-row{display:flex;gap:.28rem;flex-shrink:0}
+.edit-btn,.del-btn{padding:.32rem .6rem;border:none;cursor:pointer;font-weight:600;font-size:.68rem;color:#fff}
+.edit-btn{background:var(--pb)}.edit-btn:hover{background:var(--db)}
+.del-btn{background:var(--red)}.del-btn:hover{background:#c82333}
+.ie-area{width:100%;min-height:170px;padding:.5rem;border:1px solid var(--bg);font-family:monospace;font-size:.68rem;resize:vertical}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media(max-width:900px){
+  .detail-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  /* TOP BAR: minimal on mobile */
+  .top-bar{padding:.2rem 0}
+  .top-bar-inner{justify-content:center;flex-wrap:wrap;gap:.15rem}
+  .tb-left{gap:.6rem}
+  .tb-left span{display:none}
+  .top-bar-inner>span{font-size:.65rem;display:none}
+  .tb-left a{font-size:.72rem}
+
+  .hdr{flex-direction:column;gap:.42rem;padding:.5rem .7rem}
+  .logo-wrap img{height:44px}
+  .co-name{font-size:.82rem}
+  nav a{padding:.38rem .55rem;font-size:.72rem}
+  .hero{height:280px}
+  .hero-inner h1{font-size:1.6rem}
+  .hero-inner p{font-size:.88rem}
+  .inv-grid{grid-template-columns:1fr}
+  .admin-panel{width:100%;right:-100%}
+  .specs-grid,.feat-list{grid-template-columns:1fr}
+  .partner-row{gap:1.2rem}
+  .about-grid img{order:-1}
+  .car-thumbs img{width:50px;height:38px}
+}
+</style>
 </head>
 <body>
-    <!-- Top Contact Bar -->
-    <div class="top-bar">
-        <div class="top-bar-content">
-            <div class="contact-links">
-                <span>📍 711 North 3rd Street, Girard, IL 62640</span>
-                <a href="tel:217-627-2007">Sales: 217-627-2007</a>
-            </div>
-            <div>
-                <span>Mon-Fri 9AM-6PM | Sat 9AM-4PM</span>
-            </div>
-        </div>
+
+<!-- ═══════════════ TOP BAR ═══════════════ -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="tb-left">
+      <span>📍 711 North 3rd Street, Girard, IL 62640</span>
+      <a href="tel:2176272007">📞 217-627-2007</a>
     </div>
+    <span>Mon–Fri 9AM–6PM &nbsp;|&nbsp; Sat 9AM–4PM</span>
+  </div>
+</div>
 
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="logo-section" onclick="showPage('home')">
-                <img src="csc-logo.png" class="logo-image" alt="CSC Motor Company Logo">
-                <div class="company-info">
-                    <div class="company-name">CSC Motor Company, Inc.</div>
-                    <div class="company-location">Girard, IL</div>
-                </div>
-            </div>
-            <nav>
-                <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
-                <a onclick="showPage('vehicles')" id="nav-vehicles">Vehicles</a>
-                <a onclick="showPage('golf-carts')" id="nav-golf-carts">Golf Carts</a>
-                <a onclick="showPage('about')" id="nav-about">About</a>
-                <a onclick="showPage('contact')" id="nav-contact">Contact</a>
-            </nav>
-            <button class="admin-btn" onclick="openAdminPanel()">Admin</button>
-        </div>
-    </header>
-
-    <!-- Home Page -->
-    <div id="page-home" class="page-content active">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">Welcome to CSC Motor Company</h1>
-                <div class="title-divider"></div>
-                <p class="page-subtitle">Quality Pre-Owned Vehicles in Central Illinois</p>
-            </div>
-
-            <div class="about-content">
-                <div class="about-grid">
-                    <div class="about-text">
-                        <h3>Your Trusted Local Dealer</h3>
-                        <p>Located in Girard, Illinois, CSC Motor Company has been serving Central Illinois with quality pre-owned vehicles for over a decade. We specialize in reliable cars, trucks, SUVs, and golf carts at competitive prices.</p>
-                        <p>Our commitment to customer satisfaction and transparent business practices has made us a trusted name in the community. Every vehicle on our lot undergoes thorough inspection to ensure you're getting a dependable vehicle you can count on.</p>
-                        <button class="cta-button" onclick="showPage('vehicles')" style="margin-top: 1rem; border: none; cursor: pointer;">Browse Our Inventory</button>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1562911791-c7a97b729ec5?w=800" alt="Our Dealership" class="about-image">
-                </div>
-            </div>
-        </div>
-
-        <!-- Warranty Section -->
-        <div class="warranty-section">
-            <div class="warranty-content">
-                <h2>Best Warranty Protection Available</h2>
-                <p>At CSC Motor Company, we stand behind every vehicle we sell. That's why we offer the best warranty protection available through our trusted partners. Drive with confidence knowing you're covered.</p>
-                <div class="partner-logos">
-                    <div class="partner-logo-container">
-                        <img src="https://www.ascwarranty.com/wp-content/uploads/2021/04/ASC-Warranty-Logo.png" alt="ASC Warranty" class="partner-logo">
-                        <p><strong>Warranty Plans</strong></p>
-                    </div>
-                    <div class="partner-logo-container">
-                        <img src="https://www.scottcreditunion.org/images/logo.png" alt="Scott Credit Union" class="partner-logo">
-                        <p><strong>Financing Available</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header>
+  <div class="hdr">
+    <div class="logo-wrap" onclick="showPage('home')">
+      <img src="csc-logo.png" alt="CSC Motor Company">
+      <div>
+        <div class="co-name">CSC Motor Company, Inc.</div>
+        <div class="co-loc">Girard, IL</div>
+      </div>
     </div>
+    <nav>
+      <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
+      <a id="nav-new" onclick="showPage('new')">New Arrivals</a>
+      <a id="nav-vehicles" onclick="showPage('vehicles')">Vehicles</a>
+      <a id="nav-golf" onclick="showPage('golf')">Golf Carts</a>
+      <a id="nav-about" onclick="showPage('about')">About</a>
+      <a id="nav-contact" onclick="showPage('contact')">Contact</a>
+    </nav>
+    <button class="admin-btn" onclick="openLogin()">Admin</button>
+  </div>
+</header>
 
-    <!-- Vehicles Page -->
-    <div id="page-vehicles" class="page-content">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">Pre-owned Vehicles</h1>
-                <div class="title-divider"></div>
-                <p class="page-subtitle">Browse our quality selection of cars, trucks, and SUVs</p>
-            </div>
-
-            <!-- Filter Bar -->
-            <div class="filter-bar">
-                <div class="filter-grid">
-                    <div class="filter-group">
-                        <label>Type</label>
-                        <select id="filter-type" onchange="applyFilters()">
-                            <option value="">All Types</option>
-                            <option value="cars">Cars</option>
-                            <option value="trucks">Trucks</option>
-                            <option value="suv">SUVs</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Make</label>
-                        <select id="filter-make" onchange="applyFilters()">
-                            <option value="">All Makes</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Max Price</label>
-                        <select id="filter-price" onchange="applyFilters()">
-                            <option value="">Any Price</option>
-                            <option value="10000">Under $10,000</option>
-                            <option value="15000">Under $15,000</option>
-                            <option value="20000">Under $20,000</option>
-                            <option value="25000">Under $25,000</option>
-                            <option value="30000">Under $30,000</option>
-                            <option value="40000">Under $40,000</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Search</label>
-                        <input type="text" id="filter-search" placeholder="Search by keyword..." oninput="applyFilters()">
-                    </div>
-                </div>
-            </div>
-
-            <div class="results-info" id="results-count"></div>
-            <div id="vehicle-grid" class="inventory-grid"></div>
-        </div>
+<!-- ═══════════════ HOME ═══════════════ -->
+<div id="page-home" class="page active">
+  <!-- Hero: golf cart photo -->
+  <div class="hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-inner">
+      <h1>Quality Pre-Owned Vehicles</h1>
+      <p>Your trusted dealer in Central Illinois — cars, trucks, SUVs &amp; golf carts</p>
+      <button class="hero-cta" onclick="showPage('vehicles')">Browse Inventory</button>
     </div>
-
-    <!-- Golf Carts Page -->
-    <div id="page-golf-carts" class="page-content">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">Golf Carts</h1>
-                <div class="title-divider"></div>
-                <p class="page-subtitle">Quality Club Car golf carts for sale</p>
-            </div>
-            <div id="golf-cart-grid" class="inventory-grid"></div>
-        </div>
+  </div>
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <h3>Your Trusted Local Dealer</h3>
+        <p>Located in Girard, Illinois, CSC Motor Company has been serving Central Illinois with quality pre-owned vehicles for over a decade. We specialize in reliable cars, trucks, SUVs, and golf carts at competitive prices.</p>
+        <p>Every vehicle on our lot undergoes thorough inspection to ensure you're getting a dependable vehicle you can count on. Stop by today!</p>
+      </div>
+      <img id="about-img" src="" alt="CSC Motor Company">
     </div>
-
-    <!-- About Page -->
-    <div id="page-about" class="page-content">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">About CSC Motor Company</h1>
-                <div class="title-divider"></div>
-                <p class="page-subtitle">Your trusted local dealer since 2010</p>
-            </div>
-            <div class="about-content">
-                <div class="about-grid">
-                    <div class="about-text">
-                        <h3>Welcome to CSC Motor Company</h3>
-                        <p>Located in Girard, Illinois, CSC Motor Company has been serving Central Illinois with quality pre-owned vehicles for over a decade. We specialize in reliable cars, trucks, SUVs, and golf carts at competitive prices.</p>
-                        <p>Our commitment to customer satisfaction and transparent business practices has made us a trusted name in the community. Every vehicle on our lot undergoes thorough inspection to ensure you're getting a dependable vehicle you can count on.</p>
-                        <p>Whether you're looking for a family vehicle, a work truck, or a golf cart for the course, we're here to help you find exactly what you need at a price you can afford.</p>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1562911791-c7a97b729ec5?w=800" alt="Our Dealership" class="about-image">
-                </div>
-
-                <!-- Warranty Info -->
-                <div class="warranty-section" style="margin: 3rem -2rem;">
-                    <div class="warranty-content">
-                        <h2>Best Warranty & Financing Options</h2>
-                        <p>We partner with industry leaders to provide you with the best protection and financing options available.</p>
-                        <div class="partner-logos">
-                            <div class="partner-logo-container">
-                                <img src="https://www.ascwarranty.com/wp-content/uploads/2021/04/ASC-Warranty-Logo.png" alt="ASC Warranty" class="partner-logo">
-                                <p><strong>ASC Warranty Plans</strong><br>Comprehensive coverage options</p>
-                            </div>
-                            <div class="partner-logo-container">
-                                <img src="https://www.scottcreditunion.org/images/logo.png" alt="Scott Credit Union" class="partner-logo">
-                                <p><strong>Scott Credit Union</strong><br>Competitive financing rates</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  </div>
+  <div class="warranty-band">
+    <h2>Best Warranty Protection Available</h2>
+    <p>At CSC Motor Company we stand behind every vehicle we sell. We offer the best warranty plans available through <strong>ASC Warranty</strong>, and competitive financing through <strong>Scott Credit Union</strong>. Drive with confidence knowing you're covered.</p>
+    <div class="partner-row">
+      <div class="partner-box">
+        <svg class="p-logo" viewBox="0 0 195 68" xmlns="http://www.w3.org/2000/svg">
+          <rect width="195" height="68" rx="4" fill="#1a3c5e"/>
+          <text x="97" y="32" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="25" font-weight="900" fill="#fff" letter-spacing="3">ASC</text>
+          <text x="97" y="49" text-anchor="middle" font-family="Arial,sans-serif" font-size="10.5" fill="#7ab8d9" letter-spacing="4">WARRANTY</text>
+          <rect x="26" y="56" width="143" height="1.1" fill="#7ab8d9"/>
+        </svg>
+        <p><strong>ASC Warranty Plans</strong><br>Comprehensive coverage options</p>
+      </div>
+      <div class="partner-box">
+        <svg class="p-logo" viewBox="0 0 195 68" xmlns="http://www.w3.org/2000/svg">
+          <rect width="195" height="68" rx="4" fill="#003366"/>
+          <circle cx="36" cy="34" r="19" fill="none" stroke="#d4af37" stroke-width="2.4"/>
+          <text x="36" y="40" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="14" fill="#d4af37">S</text>
+          <text x="117" y="30" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="15.5" fill="#fff">SCOTT</text>
+          <text x="117" y="47" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#7ab8d9" letter-spacing="2.1">CREDIT UNION</text>
+        </svg>
+        <p><strong>Scott Credit Union</strong><br>Competitive financing rates</p>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- Contact Page -->
-    <div id="page-contact" class="page-content">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">Contact Us</h1>
-                <div class="title-divider"></div>
-                <p class="page-subtitle">Visit us today or give us a call</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Visit Our Dealership</h3>
-                    <div class="contact-info-item">
-                        <p>Address:</p>
-                        <p class="info-text">711 North 3rd Street<br>Girard, IL 62640</p>
-                    </div>
-                    <div class="contact-info-item">
-                        <p>Phone:</p>
-                        <a href="tel:217-627-2007">217-627-2007</a>
-                    </div>
-                    <div class="contact-info-item">
-                        <p>Hours:</p>
-                        <p class="info-text">
-                            Monday - Friday: 9:00 AM - 6:00 PM<br>
-                            Saturday: 9:00 AM - 4:00 PM<br>
-                            Sunday: Closed
-                        </p>
-                    </div>
-                </div>
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3042.8!2d-89.78049!3d39.44543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDI2JzQzLjUiTiA4OcKwNDYnNDkuOCJX!5e0!3m2!1sen!2sus!4v1234567890"
-                    width="100%" 
-                    height="400" 
-                    style="border: 3px solid var(--primary-blue);" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
-            </div>
-        </div>
+<!-- ═══════════════ NEW ARRIVALS ═══════════════ -->
+<div id="page-new" class="page">
+  <div class="container">
+    <div class="ph"><h1>New Arrivals</h1><div class="ph-div"></div><p>Our latest additions — freshly added to the lot</p></div>
+    <div id="new-grid" class="inv-grid"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ VEHICLES ═══════════════ -->
+<div id="page-vehicles" class="page">
+  <div class="container">
+    <div class="ph"><h1>Pre-Owned Vehicles</h1><div class="ph-div"></div><p>Browse our full selection of cars, trucks &amp; SUVs</p></div>
+    <div class="filter-bar">
+      <div class="filter-grid">
+        <div class="filter-group"><label>Type</label><select id="f-type" onchange="applyFilters()"><option value="">All Types</option><option value="cars">Cars</option><option value="trucks">Trucks</option><option value="suv">SUVs</option></select></div>
+        <div class="filter-group"><label>Make</label><select id="f-make" onchange="applyFilters()"><option value="">All Makes</option></select></div>
+        <div class="filter-group"><label>Max Price</label><select id="f-price" onchange="applyFilters()"><option value="">Any Price</option><option value="10000">Under $10,000</option><option value="15000">Under $15,000</option><option value="20000">Under $20,000</option><option value="25000">Under $25,000</option><option value="30000">Under $30,000</option><option value="40000">Under $40,000</option></select></div>
+        <div class="filter-group"><label>Search</label><input type="text" id="f-search" placeholder="Keyword…" oninput="applyFilters()"></div>
+      </div>
     </div>
+    <div class="results-info" id="res-count"></div>
+    <div id="veh-grid" class="inv-grid"></div>
+  </div>
+</div>
 
-    <!-- Detail Page -->
-    <div id="detail-page" class="detail-page"></div>
+<!-- ═══════════════ GOLF CARTS ═══════════════ -->
+<div id="page-golf" class="page">
+  <div class="container">
+    <div class="ph"><h1>Golf Carts</h1><div class="ph-div"></div><p>Quality Club Car golf carts for sale</p></div>
+    <div id="golf-grid" class="inv-grid"></div>
+  </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>CSC Motor Company, Inc.</h3>
-                <p>Your trusted source for quality pre-owned vehicles in Central Illinois.</p>
-                <p style="margin-top: 1rem;">Serving Girard and surrounding communities since 2010.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a onclick="showPage('vehicles')">Pre-owned Vehicles</a>
-                <a onclick="showPage('golf-carts')">Golf Carts</a>
-                <a onclick="showPage('about')">About Us</a>
-                <a onclick="showPage('contact')">Contact Us</a>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p>📍 711 North 3rd Street<br>Girard, IL 62640</p>
-                <p>📞 <a href="tel:217-627-2007">217-627-2007</a></p>
-                <p>Mon-Fri: 9AM-6PM<br>Sat: 9AM-4PM<br>Sun: Closed</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 CSC Motor Company, Inc. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Admin Panel -->
-    <div id="admin-panel" class="admin-panel">
-        <div class="admin-header">
-            <h2>Admin Panel</h2>
-            <button class="close-btn" onclick="closeAdminPanel()">&times;</button>
-        </div>
-        
-        <div class="admin-tabs">
-            <button class="admin-tab active" onclick="showAdminTab('add')">Add Vehicle</button>
-            <button class="admin-tab" onclick="showAdminTab('manage')">Manage</button>
-            <button class="admin-tab" onclick="showAdminTab('import')">Import/Export</button>
-        </div>
-
-        <div class="admin-content">
-            <!-- Add Vehicle Tab -->
-            <div id="admin-add" class="admin-section active">
-                <form id="add-vehicle-form">
-                    <div class="form-group">
-                        <label>Year *</label>
-                        <input type="text" id="add-year" required placeholder="2020">
-                    </div>
-                    <div class="form-group">
-                        <label>Make *</label>
-                        <input type="text" id="add-make" required placeholder="CHEVROLET">
-                    </div>
-                    <div class="form-group">
-                        <label>Model *</label>
-                        <input type="text" id="add-model" required placeholder="SILVERADO">
-                    </div>
-                    <div class="form-group">
-                        <label>Type *</label>
-                        <select id="add-type" required>
-                            <option value="cars">Car</option>
-                            <option value="trucks">Truck</option>
-                            <option value="suv">SUV</option>
-                            <option value="golfcart">Golf Cart</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Price (or "Call for Price") *</label>
-                        <input type="text" id="add-price" required placeholder="25000">
-                    </div>
-                    <div class="form-group">
-                        <label>Color</label>
-                        <input type="text" id="add-color" placeholder="Black">
-                    </div>
-                    <div class="form-group">
-                        <label>Mileage</label>
-                        <input type="text" id="add-mileage" placeholder="45000">
-                    </div>
-                    <div class="form-group">
-                        <label>Engine</label>
-                        <input type="text" id="add-engine" placeholder="V8 5.3L">
-                    </div>
-                    <div class="form-group">
-                        <label>Drivetrain</label>
-                        <input type="text" id="add-drivetrain" placeholder="4WD">
-                    </div>
-                    <div class="form-group">
-                        <label>Body Style</label>
-                        <input type="text" id="add-bodystyle" placeholder="Crew Cab Pickup">
-                    </div>
-                    <div class="form-group">
-                        <label>VIN</label>
-                        <input type="text" id="add-vin" placeholder="1GCVKREC1LZ123456">
-                    </div>
-                    <div class="form-group">
-                        <label>Stock #</label>
-                        <input type="text" id="add-stock" placeholder="A1234">
-                    </div>
-                    <div class="form-group">
-                        <label>Image URL *</label>
-                        <input type="text" id="add-image" required placeholder="https://example.com/image.jpg">
-                    </div>
-                    <div class="form-group">
-                        <label>Features (one per line)</label>
-                        <textarea id="add-features" placeholder="Leather Seats&#10;Navigation System&#10;Backup Camera"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="add-description" placeholder="Excellent condition, well maintained..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Add Vehicle</button>
-                </form>
-            </div>
-
-            <!-- Manage Vehicles Tab -->
-            <div id="admin-manage" class="admin-section">
-                <div id="vehicle-list" class="vehicle-list"></div>
-            </div>
-
-            <!-- Import/Export Tab -->
-            <div id="admin-import" class="admin-section">
-                <div class="form-group">
-                    <label>Import/Export Data (JSON)</label>
-                    <textarea id="import-export-data" rows="15"></textarea>
-                </div>
-                <button onclick="exportData()" class="submit-btn" style="margin-bottom: 1rem;">Export Data</button>
-                <button onclick="importData()" class="submit-btn">Import Data</button>
-            </div>
-        </div>
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<div id="page-about" class="page">
+  <div class="container">
+    <div class="ph"><h1>About Us</h1><div class="ph-div"></div><p>Your trusted local dealer since 2010</p></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h3>Welcome to CSC Motor Company</h3>
+        <p>Located in Girard, Illinois, CSC Motor Company has been serving Central Illinois with quality pre-owned vehicles for over a decade.</p>
+        <p>Our commitment to customer satisfaction and transparent business practices has made us a trusted name in the community. Every vehicle undergoes thorough inspection before hitting our lot.</p>
+        <p>Whether you need a family vehicle, a work truck, or a golf cart, we're here to help at a price you can afford.</p>
+      </div>
+      <img id="about-img-2" src="" alt="CSC Motor Company">
     </div>
+  </div>
+  <div class="warranty-band">
+    <h2>Best Warranty &amp; Financing Options</h2>
+    <p>We partner with industry leaders to provide the best protection and financing available for every vehicle we sell.</p>
+    <div class="partner-row">
+      <div class="partner-box">
+        <svg class="p-logo" viewBox="0 0 195 68" xmlns="http://www.w3.org/2000/svg"><rect width="195" height="68" rx="4" fill="#1a3c5e"/><text x="97" y="32" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="25" font-weight="900" fill="#fff" letter-spacing="3">ASC</text><text x="97" y="49" text-anchor="middle" font-family="Arial,sans-serif" font-size="10.5" fill="#7ab8d9" letter-spacing="4">WARRANTY</text><rect x="26" y="56" width="143" height="1.1" fill="#7ab8d9"/></svg>
+        <p><strong>ASC Warranty Plans</strong><br>Comprehensive coverage</p>
+      </div>
+      <div class="partner-box">
+        <svg class="p-logo" viewBox="0 0 195 68" xmlns="http://www.w3.org/2000/svg"><rect width="195" height="68" rx="4" fill="#003366"/><circle cx="36" cy="34" r="19" fill="none" stroke="#d4af37" stroke-width="2.4"/><text x="36" y="40" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="14" fill="#d4af37">S</text><text x="117" y="30" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="15.5" fill="#fff">SCOTT</text><text x="117" y="47" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#7ab8d9" letter-spacing="2.1">CREDIT UNION</text></svg>
+        <p><strong>Scott Credit Union</strong><br>Competitive rates</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <script>
-        // Vehicle Database with actual CSC inventory (removed yellow Camaro image)
-        let vehicleDatabase = [
-            {
-                id: 1,
-                year: "2013",
-                make: "RAM",
-                model: "1500 SLT",
-                type: "trucks",
-                price: 16495,
-                color: "Silver",
-                mileage: "134,567",
-                engine: "5.7L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "1C6RR7LT4DS636384",
-                stock: "S636384",
-                image: "https://www.fridayimages.com/66604378453874538945378/1C6RR7LT4DS636384.jpg",
-                features: ["Power Windows", "Power Locks", "Air Conditioning", "Cruise Control", "AM/FM Radio", "4-Wheel Drive"],
-                description: "Well-maintained RAM 1500 with powerful V8 engine."
-            },
-            {
-                id: 2,
-                year: "2022",
-                make: "CHEVROLET",
-                model: "EQUINOX LT AWD",
-                type: "suv",
-                price: 17995,
-                color: "Grey",
-                mileage: "68,543",
-                engine: "1.5L 4cyl",
-                drivetrain: "AWD",
-                bodystyle: "SPORT UTILITY VEHICLE",
-                vin: "2GNAXUEV4N6114942",
-                stock: "6114942",
-                image: "https://www.fridayimages.com/66604378453874538945378/2GNAXUEV4N6114942.jpg",
-                features: ["Backup Camera", "Bluetooth", "Power Windows", "Power Locks", "Air Conditioning", "Cruise Control", "All-Wheel Drive"],
-                description: "Modern Equinox with low miles and excellent fuel economy."
-            },
-            {
-                id: 3,
-                year: "2022",
-                make: "CHEVROLET",
-                model: "EQUINOX LT",
-                type: "suv",
-                price: 18495,
-                color: "Grey",
-                mileage: "43,790",
-                engine: "1.5L 4cyl",
-                drivetrain: "FWD",
-                bodystyle: "SPORT UTILITY VEHICLE",
-                vin: "2GNAXKEV8N6132316",
-                stock: "6132316",
-                image: "https://www.fridayimages.com/66604378453874538945378/2GNAXKEV8N6132316.jpg",
-                features: ["Backup Camera", "Bluetooth", "Power Windows", "Air Conditioning", "Cruise Control"],
-                description: "Low mileage 2022 Equinox in excellent condition."
-            },
-            {
-                id: 4,
-                year: "2024",
-                make: "CHEVROLET",
-                model: "MALIBU LT",
-                type: "cars",
-                price: 18995,
-                color: "Black",
-                mileage: "33,907",
-                engine: "1.5L 4cyl",
-                drivetrain: "FWD",
-                bodystyle: "SEDAN",
-                vin: "1G1ZD5ST5RF208362",
-                stock: "F208362",
-                image: "https://www.fridayimages.com/66604378453874538945378/1G1ZD5ST5RF208362.jpg",
-                features: ["Backup Camera", "Bluetooth", "Power Windows", "Power Locks", "Air Conditioning", "Cruise Control", "Touchscreen Display"],
-                description: "Nearly new 2024 Malibu with modern features."
-            },
-            {
-                id: 5,
-                year: "2017",
-                make: "CHEVROLET",
-                model: "SILVERADO K1500 LT",
-                type: "trucks",
-                price: 21995,
-                color: "Blue",
-                mileage: "122,309",
-                engine: "5.3L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "3GCUKREC9HG466343",
-                stock: "M466343",
-                image: "https://www.fridayimages.com/66604378453874538945378/3GCUKREC9HG466343.jpg",
-                features: ["4-Wheel Drive", "Power Windows", "Power Locks", "Air Conditioning", "Cruise Control", "Tow Package"],
-                description: "Reliable Silverado 1500 ready for work or play."
-            },
-            {
-                id: 6,
-                year: "2022",
-                make: "CHEVROLET",
-                model: "SILVERADO K1500 LT-L",
-                type: "trucks",
-                price: 34995,
-                color: "White",
-                mileage: "37,120",
-                engine: "2.7L 4cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "1GCPDKEK9NZ502940",
-                stock: "Z502940",
-                image: "https://www.fridayimages.com/66604378453874538945378/1GCPDKEK9NZ502940.jpg",
-                features: ["Backup Camera", "Bluetooth", "4-Wheel Drive", "Power Windows", "Air Conditioning", "Cruise Control", "Touchscreen"],
-                description: "Low mileage 2022 Silverado with modern features."
-            },
-            {
-                id: 7,
-                year: "2019",
-                make: "FORD",
-                model: "F150 SUPER CAB",
-                type: "trucks",
-                price: 23995,
-                color: "Black",
-                mileage: "84,210",
-                engine: "5.0L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "1FTFX1E5XKKF03008",
-                stock: "KF03008",
-                image: "https://www.fridayimages.com/66604378453874538945378/1FTFX1E5XKKF03008.jpg",
-                features: ["4-Wheel Drive", "Power Windows", "Power Locks", "Air Conditioning", "Cruise Control", "Backup Camera"],
-                description: "Powerful F150 with V8 engine."
-            },
-            {
-                id: 8,
-                year: "2016",
-                make: "FORD",
-                model: "TAURUS SEL",
-                type: "cars",
-                price: 7495,
-                color: "Grey",
-                mileage: "167,311",
-                engine: "3.5L 6cyl",
-                drivetrain: "FWD",
-                bodystyle: "SEDAN",
-                vin: "1FAHP2E82GG138140",
-                stock: "F138140",
-                image: "https://www.fridayimages.com/66604378453874538945378/1FAHP2E82GG138140.jpg",
-                features: ["Power Windows", "Power Locks", "Air Conditioning", "Cruise Control"],
-                description: "Affordable sedan with spacious interior."
-            },
-            {
-                id: 9,
-                year: "2017",
-                make: "GMC",
-                model: "SIERRA K1500 SLE",
-                type: "trucks",
-                price: "Call for Price",
-                color: "",
-                mileage: "",
-                engine: "5.3L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "1GTV2MEC9HZ339406",
-                stock: "Z339406",
-                image: "https://www.fridayimages.com/66604378453874538945378/1GTV2MEC9HZ339406.jpg",
-                features: ["4-Wheel Drive", "Power Windows", "Air Conditioning"],
-                description: "GMC Sierra ready for work."
-            },
-            {
-                id: 10,
-                year: "2017",
-                make: "GMC",
-                model: "SIERRA K2500 SLE",
-                type: "trucks",
-                price: 29995,
-                color: "Silver",
-                mileage: "84,309",
-                engine: "6.0L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "1GT12SEGXHF238883",
-                stock: "F238883",
-                image: "https://www.fridayimages.com/66604378453874538945378/1GT12SEGXHF238883.jpg",
-                features: ["4-Wheel Drive", "Power Windows", "Power Locks", "Air Conditioning", "Heavy Duty"],
-                description: "Heavy duty Sierra K2500."
-            },
-            {
-                id: 11,
-                year: "2019",
-                make: "JEEP",
-                model: "GRAND CHEROKEE LIMITED",
-                type: "suv",
-                price: 16995,
-                color: "Black",
-                mileage: "84,309",
-                engine: "3.6L 6cyl",
-                drivetrain: "4WD",
-                bodystyle: "SPORT UTILITY VEHICLE",
-                vin: "1C4RJFBGXKC842279",
-                stock: "C842279",
-                image: "https://www.fridayimages.com/66604378453874538945378/1C4RJFBGXKC842279.jpg",
-                features: ["Leather Seats", "Heated Seats", "Backup Camera", "4-Wheel Drive", "Power Windows", "Air Conditioning", "Cruise Control"],
-                description: "Luxury Grand Cherokee with premium features."
-            },
-            {
-                id: 12,
-                year: "2015",
-                make: "JEEP",
-                model: "WRANGLER UNLIMITED SAHARA",
-                type: "suv",
-                price: 16995,
-                color: "Red",
-                mileage: "108,432",
-                engine: "3.6L 6cyl",
-                drivetrain: "4WD",
-                bodystyle: "SPORT UTILITY VEHICLE",
-                vin: "1C4BJWEG2FL758380",
-                stock: "L758380",
-                image: "https://www.fridayimages.com/66604378453874538945378/1C4BJWEG2FL758380.jpg",
-                features: ["4-Wheel Drive", "Removable Top", "Power Windows", "Air Conditioning"],
-                description: "Classic Wrangler Unlimited ready for adventure."
-            },
-            {
-                id: 13,
-                year: "2017",
-                make: "RAM",
-                model: "1500 LARAMIE",
-                type: "trucks",
-                price: 17995,
-                color: "Grey",
-                mileage: "151,209",
-                engine: "5.7L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "1C6RR7NT3HS627825",
-                stock: "S627825",
-                image: "https://www.fridayimages.com/66604378453874538945378/1C6RR7NT3HS627825.jpg",
-                features: ["Leather Seats", "4-Wheel Drive", "Power Windows", "Power Locks", "Air Conditioning", "Cruise Control"],
-                description: "Laramie trim with luxury features."
-            },
-            {
-                id: 14,
-                year: "2017",
-                make: "RAM",
-                model: "1500 REBEL",
-                type: "trucks",
-                price: 23995,
-                color: "Maroon",
-                mileage: "106,098",
-                engine: "5.7L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "1C6RR7YT4HS809383",
-                stock: "S809383",
-                image: "https://www.fridayimages.com/66604378453874538945378/1C6RR7YT4HS809383.jpg",
-                features: ["Off-Road Package", "4-Wheel Drive", "Power Windows", "Air Conditioning", "Cruise Control"],
-                description: "Rebel edition with off-road capabilities."
-            },
-            {
-                id: 15,
-                year: "2016",
-                make: "RAM",
-                model: "1500 SLT",
-                type: "trucks",
-                price: 18495,
-                color: "Maroon",
-                mileage: "98,765",
-                engine: "5.7L 8cyl",
-                drivetrain: "4WD",
-                bodystyle: "PICKUP TRUCK",
-                vin: "3C6RR7LT8GG250272",
-                stock: "G250272",
-                image: "https://www.fridayimages.com/66604378453874538945378/3C6RR7LT8GG250272.jpg",
-                features: ["4-Wheel Drive", "Power Windows", "Power Locks", "Air Conditioning"],
-                description: "Reliable RAM 1500 work truck."
-            },
-            // Golf Carts
-            {
-                id: 16,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 5750,
-                color: "Grey",
-                mileage: "0",
-                engine: "Fuel Injected",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "345155252525235",
-                stock: "G-09871",
-                image: "https://www.fridayimages.com/66604378453874538945378/345155252525235.jpg",
-                features: ["Fuel Injected", "Lights", "Windshield"],
-                description: "Fuel injected golf cart in grey."
-            },
-            {
-                id: 17,
-                year: "2017",
-                make: "CLUB CAR",
-                model: "PRECEDENT",
-                type: "golfcart",
-                price: 7750,
-                color: "",
-                mileage: "0",
-                engine: "Fuel Injected",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "987665454544",
-                stock: "G-43198",
-                image: "https://www.fridayimages.com/66604378453874538945378/987665454544.jpg",
-                features: ["Fuel Injected", "Lights"],
-                description: "Club Car Precedent fuel injected."
-            },
-            {
-                id: 18,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 7495,
-                color: "Black/Orange",
-                mileage: "0",
-                engine: "Electric",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "318E1038R03808R",
-                stock: "G-76100",
-                image: "https://www.fridayimages.com/66604378453874538945378/318E1038R03808R.jpg",
-                features: ["Electric", "New Trojan Batteries", "Lights", "Windshield"],
-                description: "Electric golf cart with new Trojan batteries."
-            },
-            {
-                id: 19,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 7495,
-                color: "Orange Bolt",
-                mileage: "0",
-                engine: "Fuel Injected",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "098097875546587",
-                stock: "G-09831",
-                image: "https://www.fridayimages.com/66604378453874538945378/098097875546587.jpg",
-                features: ["Fuel Injected", "Custom Paint", "Lights"],
-                description: "Custom orange bolt paint fuel injected cart."
-            },
-            {
-                id: 20,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 9995,
-                color: "Orange/Black",
-                mileage: "0",
-                engine: "Electric",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "08098687546546545",
-                stock: "G-09871",
-                image: "https://www.fridayimages.com/66604378453874538945378/08098687546546545.jpg",
-                features: ["Electric", "6-Passenger", "New Trojan Batteries", "Extended Roof"],
-                description: "6-passenger electric cart with new batteries."
-            },
-            {
-                id: 21,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 8995,
-                color: "Black/Silver",
-                mileage: "0",
-                engine: "Electric",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "9873638289933",
-                stock: "G-23986",
-                image: "https://www.fridayimages.com/66604378453874538945378/9873638289933.jpg",
-                features: ["Electric", "New Bolt Energy 10-Year Lithium Battery", "Premium Battery"],
-                description: "Premium lithium battery with 10-year warranty."
-            },
-            {
-                id: 22,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 7495,
-                color: "Blue/Black",
-                mileage: "0",
-                engine: "Electric",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "09841841849018498",
-                stock: "G-33876",
-                image: "https://www.fridayimages.com/66604378453874538945378/09841841849018498.jpg",
-                features: ["Electric", "New Trojan Batteries", "Lights"],
-                description: "Blue and black electric cart."
-            },
-            {
-                id: 23,
-                year: "2018",
-                make: "CLUB CAR",
-                model: "PRECEDENT",
-                type: "golfcart",
-                price: 6250,
-                color: "Yellow/Black",
-                mileage: "0",
-                engine: "Fuel Injected",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "9872782901830283",
-                stock: "G-43100",
-                image: "https://www.fridayimages.com/66604378453874538945378/9872782901830283.jpg",
-                features: ["Fuel Injected", "Custom Colors"],
-                description: "Yellow and black Precedent."
-            },
-            {
-                id: 24,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 7995,
-                color: "Silver/Black",
-                mileage: "0",
-                engine: "Electric",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "20978109489074014",
-                stock: "G-66554",
-                image: "https://www.fridayimages.com/66604378453874538945378/20978109489074014.jpg",
-                features: ["Electric", "New Trojan Batteries", "Lights"],
-                description: "Silver and black electric cart."
-            },
-            {
-                id: 25,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 7250,
-                color: "Orange Ghost Flame",
-                mileage: "0",
-                engine: "Electric",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "342353252525",
-                stock: "G-88712",
-                image: "https://www.fridayimages.com/66604378453874538945378/342353252525.jpg",
-                features: ["Electric", "New Trojan Batteries", "Custom Ghost Flame Paint"],
-                description: "Custom ghost flame paint electric cart."
-            },
-            {
-                id: 26,
-                year: "2020",
-                make: "CLUB CAR",
-                model: "TEMPO",
-                type: "golfcart",
-                price: 5495,
-                color: "Grey",
-                mileage: "0",
-                engine: "Electric",
-                drivetrain: "",
-                bodystyle: "GOLF CART",
-                vin: "08301848144709812",
-                stock: "G-90909",
-                image: "https://www.fridayimages.com/66604378453874538945378/08301848144709812.jpg",
-                features: ["Electric", "New Trojan Batteries"],
-                description: "Grey electric cart with new batteries."
-            }
-        ];
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<div id="page-contact" class="page">
+  <div class="container">
+    <div class="ph"><h1>Contact Us</h1><div class="ph-div"></div><p>Visit us or give us a call</p></div>
+    <div class="contact-grid">
+      <div>
+        <h3 style="color:var(--db);font-size:1.15rem;margin-bottom:.9rem;font-weight:700">Visit Our Dealership</h3>
+        <div class="ci-item"><div class="ci-label">Address</div><div class="ci-val">711 North 3rd Street<br>Girard, IL 62640</div></div>
+        <div class="ci-item"><div class="ci-label">Phone</div><a href="tel:2176272007">217-627-2007</a></div>
+        <div class="ci-item"><div class="ci-label">Hours</div><div class="ci-val">Monday – Friday: 9:00 AM – 6:00 PM<br>Saturday: 9:00 AM – 4:00 PM<br>Sunday: Closed</div></div>
+      </div>
+      <iframe src="https://www.google.com/maps?q=711+N+3rd+St,+Girard,+IL+62640&output=embed" width="100%" height="350" style="border:3px solid var(--pb)" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
 
-        // Load from localStorage
-        function loadVehicles() {
-            const saved = localStorage.getItem('csc_vehicles');
-            if (saved) {
-                vehicleDatabase = JSON.parse(saved);
-            }
-        }
+<!-- ═══════════════ DETAIL PAGE ═══════════════ -->
+<div id="page-detail" class="page"></div>
 
-        // Save to localStorage
-        function saveVehicles() {
-            localStorage.setItem('csc_vehicles', JSON.stringify(vehicleDatabase));
-        }
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div><h3>CSC Motor Company, Inc.</h3><p>Your trusted source for quality pre-owned vehicles in Central Illinois. Serving Girard and surrounding communities since 2010.</p></div>
+    <div><h3>Quick Links</h3>
+      <a onclick="showPage('vehicles')">Pre-Owned Vehicles</a>
+      <a onclick="showPage('golf')">Golf Carts</a>
+      <a onclick="showPage('new')">New Arrivals</a>
+      <a onclick="showPage('about')">About Us</a>
+      <a onclick="showPage('contact')">Contact Us</a>
+    </div>
+    <div><h3>Contact</h3><p>📍 711 North 3rd Street<br>Girard, IL 62640</p><p>📞 <a href="tel:2176272007">217-627-2007</a></p><p>Mon–Fri 9AM–6PM<br>Sat 9AM–4PM</p></div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 CSC Motor Company, Inc. All rights reserved.</div>
+</footer>
 
-        // Initialize
-        loadVehicles();
-        populateFilters();
-        applyFilters();
-        renderGolfCartGrid();
+<!-- ═══════════════ LOGIN MODAL ═══════════════ -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-box">
+    <button class="login-x" onclick="closeLogin()">&times;</button>
+    <h2>Admin Login</h2>
+    <p class="login-sub">Enter your credentials to access the admin panel</p>
+    <input type="text" id="login-user" placeholder="Username" autocomplete="off">
+    <input type="password" id="login-pass" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')attemptLogin()">
+    <div class="login-err" id="login-err"></div>
+    <button class="login-btn" onclick="attemptLogin()">Login</button>
+  </div>
+</div>
 
-        // Show page
-        function showPage(page) {
-            // Hide all pages
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            
-            // Show selected page
-            document.getElementById('page-' + page).classList.add('active');
-            document.getElementById('nav-' + page).classList.add('active');
-            
-            // Hide detail page if open
-            document.getElementById('detail-page').classList.remove('active');
-            
-            window.scrollTo(0, 0);
-        }
+<!-- ═══════════════ ADMIN PANEL ═══════════════ -->
+<div class="admin-panel" id="admin-panel">
+  <div class="admin-hdr"><h2>Admin Panel</h2><button class="admin-close" onclick="closeAdmin()">&times;</button></div>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchTab(this,'add')">Add Vehicle</button>
+    <button class="admin-tab" onclick="switchTab(this,'manage')">Manage</button>
+    <button class="admin-tab" onclick="switchTab(this,'ie')">Import / Export</button>
+  </div>
+  <div class="admin-body">
+    <!-- ADD -->
+    <div id="sec-add" class="admin-sec active">
+      <form id="add-form">
+        <div class="fg"><label>Year *</label><input type="text" id="a-year" required placeholder="2020"></div>
+        <div class="fg"><label>Make *</label><input type="text" id="a-make" required placeholder="CHEVROLET"></div>
+        <div class="fg"><label>Model *</label><input type="text" id="a-model" required placeholder="SILVERADO"></div>
+        <div class="fg"><label>Type *</label><select id="a-type" required><option value="cars">Car</option><option value="trucks">Truck</option><option value="suv">SUV</option><option value="golfcart">Golf Cart</option></select></div>
+        <div class="fg"><label>Price (number, or type "Call for Price") *</label><input type="text" id="a-price" required placeholder="25000"></div>
+        <div class="fg"><label>Color</label><input type="text" id="a-color" placeholder="Black"></div>
+        <div class="fg"><label>Mileage</label><input type="text" id="a-mileage" placeholder="45,000"></div>
+        <div class="fg"><label>Engine</label><input type="text" id="a-engine" placeholder="5.3L 8cyl"></div>
+        <div class="fg"><label>Drivetrain</label><input type="text" id="a-drive" placeholder="4WD"></div>
+        <div class="fg"><label>Body Style</label><input type="text" id="a-body" placeholder="PICKUP TRUCK"></div>
+        <div class="fg"><label>VIN</label><input type="text" id="a-vin" placeholder="1GCVKREC1LZ123456"></div>
+        <div class="fg"><label>Stock #</label><input type="text" id="a-stock" placeholder="T1234"></div>
+        <div class="fg"><label>Image URLs (one per line — first one = main photo)</label><textarea id="a-imgs" rows="4" placeholder="https://example.com/photo1.jpg&#10;https://example.com/photo2.jpg&#10;https://example.com/photo3.jpg"></textarea></div>
+        <div class="fg"><label>Features (one per line)</label><textarea id="a-feat" rows="4" placeholder="Leather Seats&#10;Backup Camera&#10;Navigation"></textarea></div>
+        <div class="fg"><label>Description</label><textarea id="a-desc" rows="2" placeholder="Great condition…"></textarea></div>
+        <div class="fg">
+          <div class="na-row">
+            <input type="checkbox" id="a-new">
+            <label for="a-new">⭐ Mark as New Arrival — appears on the New Arrivals page</label>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Add Vehicle</button>
+      </form>
+    </div>
+    <!-- MANAGE -->
+    <div id="sec-manage" class="admin-sec"><div id="manage-list"></div></div>
+    <!-- IMPORT / EXPORT -->
+    <div id="sec-ie" class="admin-sec">
+      <div class="fg"><label>JSON Data</label><textarea class="ie-area" id="ie-data"></textarea></div>
+      <button class="submit-btn" onclick="exportData()" style="margin-bottom:.5rem">Export Data</button>
+      <button class="submit-btn" onclick="importData()">Import Data</button>
+    </div>
+  </div>
+</div>
 
-        // Populate filter dropdowns
-        function populateFilters() {
-            const makes = [...new Set(vehicleDatabase.filter(v => v.type !== 'golfcart').map(v => v.make))].sort();
-            const makeSelect = document.getElementById('filter-make');
-            makeSelect.innerHTML = '<option value="">All Makes</option>';
-            makes.forEach(make => {
-                const option = document.createElement('option');
-                option.value = make;
-                option.textContent = make;
-                makeSelect.appendChild(option);
-            });
-        }
+<script>
+// ─── IMAGE BASE URL ────────────────────────────────────────
+var B = "https://www.fridayimages.com/66604378453874538945378/";
 
-        // Apply filters
-        function applyFilters() {
-            const type = document.getElementById('filter-type').value.toLowerCase();
-            const make = document.getElementById('filter-make').value.toLowerCase();
-            const maxPrice = parseInt(document.getElementById('filter-price').value) || Infinity;
-            const search = document.getElementById('filter-search').value.toLowerCase();
+// ─── VEHICLE DATABASE with verified image counts ───────────
+// Each vehicle has imageCount which is how many images actually exist for it
+var DB = [
+  {id:1,year:"2013",make:"RAM",model:"1500 SLT",type:"trucks",price:16495,color:"Silver",mileage:"134,567",engine:"5.7L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"1C6RR7LT4DS636384",stock:"S636384",imageCount:5,features:["Power Windows","Power Locks","Air Conditioning","Cruise Control","AM/FM Radio","4-Wheel Drive"],description:"Well-maintained RAM 1500 with powerful V8 engine.",newArrival:false},
+  {id:2,year:"2022",make:"CHEVROLET",model:"EQUINOX LT AWD",type:"suv",price:17995,color:"Grey",mileage:"68,543",engine:"1.5L 4cyl",drivetrain:"AWD",bodystyle:"SPORT UTILITY VEHICLE",vin:"2GNAXUEV4N6114942",stock:"6114942",imageCount:5,features:["Backup Camera","Bluetooth","Power Windows","Power Locks","Air Conditioning","Cruise Control","All-Wheel Drive"],description:"Modern Equinox with low miles and excellent fuel economy.",newArrival:false},
+  {id:3,year:"2022",make:"CHEVROLET",model:"EQUINOX LT",type:"suv",price:18495,color:"Grey",mileage:"43,790",engine:"1.5L 4cyl",drivetrain:"FWD",bodystyle:"SPORT UTILITY VEHICLE",vin:"2GNAXKEV8N6132316",stock:"6132316",imageCount:5,features:["Backup Camera","Bluetooth","Power Windows","Air Conditioning","Cruise Control"],description:"Low mileage 2022 Equinox in excellent condition.",newArrival:false},
+  {id:4,year:"2024",make:"CHEVROLET",model:"MALIBU LT",type:"cars",price:18995,color:"Black",mileage:"33,907",engine:"1.5L 4cyl",drivetrain:"FWD",bodystyle:"SEDAN",vin:"1G1ZD5ST5RF208362",stock:"F208362",imageCount:5,features:["Backup Camera","Bluetooth","Power Windows","Power Locks","Air Conditioning","Cruise Control","Touchscreen Display"],description:"Nearly new 2024 Malibu with modern features.",newArrival:false},
+  {id:5,year:"2017",make:"CHEVROLET",model:"SILVERADO K1500 LT",type:"trucks",price:21995,color:"Blue",mileage:"122,309",engine:"5.3L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"3GCUKREC9HG466343",stock:"M466343",imageCount:5,features:["4-Wheel Drive","Power Windows","Power Locks","Air Conditioning","Cruise Control","Tow Package"],description:"Reliable Silverado 1500 ready for work or play.",newArrival:false},
+  {id:6,year:"2022",make:"CHEVROLET",model:"SILVERADO K1500 LT-L",type:"trucks",price:34995,color:"White",mileage:"37,120",engine:"2.7L 4cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"1GCPDKEK9NZ502940",stock:"Z502940",imageCount:5,features:["Backup Camera","Bluetooth","4-Wheel Drive","Power Windows","Air Conditioning","Cruise Control","Touchscreen"],description:"Low mileage 2022 Silverado with modern features.",newArrival:false},
+  {id:7,year:"2019",make:"FORD",model:"F150 SUPER CAB",type:"trucks",price:23995,color:"Black",mileage:"84,210",engine:"5.0L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"1FTFX1E5XKKF03008",stock:"KF03008",imageCount:5,features:["4-Wheel Drive","Power Windows","Power Locks","Air Conditioning","Cruise Control","Backup Camera"],description:"Powerful F150 with V8 engine.",newArrival:false},
+  {id:8,year:"2016",make:"FORD",model:"TAURUS SEL",type:"cars",price:7495,color:"Grey",mileage:"167,311",engine:"3.5L 6cyl",drivetrain:"FWD",bodystyle:"SEDAN",vin:"1FAHP2E82GG138140",stock:"F138140",imageCount:5,features:["Power Windows","Power Locks","Air Conditioning","Cruise Control"],description:"Affordable sedan with spacious interior.",newArrival:false},
+  {id:9,year:"2017",make:"GMC",model:"SIERRA K1500 SLE",type:"trucks",price:"Call for Price",color:"",mileage:"",engine:"5.3L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"1GTV2MEC9HZ339406",stock:"Z339406",imageCount:5,features:["4-Wheel Drive","Power Windows","Air Conditioning"],description:"GMC Sierra ready for work.",newArrival:false},
+  {id:10,year:"2017",make:"GMC",model:"SIERRA K2500 SLE",type:"trucks",price:29995,color:"Silver",mileage:"84,309",engine:"6.0L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"1GT12SEGXHF238883",stock:"F238883",imageCount:5,features:["4-Wheel Drive","Power Windows","Power Locks","Air Conditioning","Heavy Duty"],description:"Heavy duty Sierra K2500.",newArrival:false},
+  {id:11,year:"2019",make:"JEEP",model:"GRAND CHEROKEE LIMITED",type:"suv",price:16995,color:"Black",mileage:"84,309",engine:"3.6L 6cyl",drivetrain:"4WD",bodystyle:"SPORT UTILITY VEHICLE",vin:"1C4RJFBGXKC842279",stock:"C842279",imageCount:5,features:["Leather Seats","Heated Seats","Backup Camera","4-Wheel Drive","Power Windows","Air Conditioning","Cruise Control"],description:"Luxury Grand Cherokee with premium features.",newArrival:false},
+  {id:12,year:"2015",make:"JEEP",model:"WRANGLER UNLIMITED SAHARA",type:"suv",price:16995,color:"Red",mileage:"108,432",engine:"3.6L 6cyl",drivetrain:"4WD",bodystyle:"SPORT UTILITY VEHICLE",vin:"1C4BJWEG2FL758380",stock:"L758380",imageCount:5,features:["4-Wheel Drive","Removable Top","Power Windows","Air Conditioning"],description:"Classic Wrangler Unlimited ready for adventure.",newArrival:false},
+  {id:13,year:"2017",make:"RAM",model:"1500 LARAMIE",type:"trucks",price:17995,color:"Grey",mileage:"151,209",engine:"5.7L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"1C6RR7NT3HS627825",stock:"S627825",imageCount:5,features:["Leather Seats","4-Wheel Drive","Power Windows","Power Locks","Air Conditioning","Cruise Control"],description:"Laramie trim with luxury features.",newArrival:false},
+  {id:14,year:"2017",make:"RAM",model:"1500 REBEL",type:"trucks",price:23995,color:"Maroon",mileage:"106,098",engine:"5.7L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"1C6RR7YT4HS809383",stock:"S809383",imageCount:5,features:["Off-Road Package","4-Wheel Drive","Power Windows","Air Conditioning","Cruise Control"],description:"Rebel edition with off-road capabilities.",newArrival:false},
+  {id:15,year:"2016",make:"RAM",model:"1500 SLT",type:"trucks",price:18495,color:"Maroon",mileage:"98,765",engine:"5.7L 8cyl",drivetrain:"4WD",bodystyle:"PICKUP TRUCK",vin:"3C6RR7LT8GG250272",stock:"G250272",imageCount:5,features:["4-Wheel Drive","Power Windows","Power Locks","Air Conditioning"],description:"Reliable RAM 1500 work truck.",newArrival:false},
+  {id:16,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:5750,color:"Grey",mileage:"0",engine:"Fuel Injected",drivetrain:"",bodystyle:"GOLF CART",vin:"345155252525235",stock:"G-09871",imageCount:1,features:["Fuel Injected","Lights","Windshield"],description:"Fuel injected golf cart in grey.",newArrival:false},
+  {id:17,year:"2017",make:"CLUB CAR",model:"PRECEDENT",type:"golfcart",price:7750,color:"",mileage:"0",engine:"Fuel Injected",drivetrain:"",bodystyle:"GOLF CART",vin:"987665454544",stock:"G-43198",imageCount:1,features:["Fuel Injected","Lights"],description:"Club Car Precedent fuel injected.",newArrival:false},
+  {id:18,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:7495,color:"Black/Orange",mileage:"0",engine:"Electric",drivetrain:"",bodystyle:"GOLF CART",vin:"318E1038R03808R",stock:"G-76100",imageCount:1,features:["Electric","New Trojan Batteries","Lights","Windshield"],description:"Electric golf cart with new Trojan batteries.",newArrival:false},
+  {id:19,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:7495,color:"Orange Bolt",mileage:"0",engine:"Fuel Injected",drivetrain:"",bodystyle:"GOLF CART",vin:"098097875546587",stock:"G-09831",imageCount:1,features:["Fuel Injected","Custom Paint","Lights"],description:"Custom orange bolt paint fuel injected cart.",newArrival:false},
+  {id:20,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:9995,color:"Orange/Black",mileage:"0",engine:"Electric",drivetrain:"",bodystyle:"GOLF CART",vin:"08098687546546545",stock:"G-09871",imageCount:1,features:["Electric","6-Passenger","New Trojan Batteries","Extended Roof"],description:"6-passenger electric cart with new batteries.",newArrival:false},
+  {id:21,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:8995,color:"Black/Silver",mileage:"0",engine:"Electric",drivetrain:"",bodystyle:"GOLF CART",vin:"9873638289933",stock:"G-23986",imageCount:1,features:["Electric","New Bolt Energy 10-Year Lithium Battery","Premium Battery"],description:"Premium lithium battery with 10-year warranty.",newArrival:false},
+  {id:22,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:7495,color:"Blue/Black",mileage:"0",engine:"Electric",drivetrain:"",bodystyle:"GOLF CART",vin:"09841841849018498",stock:"G-33876",imageCount:1,features:["Electric","New Trojan Batteries","Lights"],description:"Blue and black electric cart.",newArrival:false},
+  {id:23,year:"2018",make:"CLUB CAR",model:"PRECEDENT",type:"golfcart",price:6250,color:"Yellow/Black",mileage:"0",engine:"Fuel Injected",drivetrain:"",bodystyle:"GOLF CART",vin:"9872782901830283",stock:"G-43100",imageCount:1,features:["Fuel Injected","Custom Colors"],description:"Yellow and black Precedent.",newArrival:false},
+  {id:24,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:7995,color:"Silver/Black",mileage:"0",engine:"Electric",drivetrain:"",bodystyle:"GOLF CART",vin:"20978109489074014",stock:"G-66554",imageCount:1,features:["Electric","New Trojan Batteries","Lights"],description:"Silver and black electric cart.",newArrival:false},
+  {id:25,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:7250,color:"Orange Ghost Flame",mileage:"0",engine:"Electric",drivetrain:"",bodystyle:"GOLF CART",vin:"342353252525",stock:"G-88712",imageCount:1,features:["Electric","New Trojan Batteries","Custom Ghost Flame Paint"],description:"Custom ghost flame paint electric cart.",newArrival:false},
+  {id:26,year:"2020",make:"CLUB CAR",model:"TEMPO",type:"golfcart",price:5495,color:"Grey",mileage:"0",engine:"Electric",drivetrain:"",bodystyle:"GOLF CART",vin:"08301848144709812",stock:"G-90909",imageCount:1,features:["Electric","New Trojan Batteries"],description:"Grey electric cart with new batteries.",newArrival:false}
+];
 
-            const filtered = vehicleDatabase.filter(v => {
-                if (v.type === 'golfcart') return false;
-                if (type && v.type !== type) return false;
-                if (make && v.make.toLowerCase() !== make) return false;
-                if (typeof v.price === 'number' && v.price > maxPrice) return false;
-                if (search) {
-                    const searchStr = `${v.year} ${v.make} ${v.model} ${v.color}`.toLowerCase();
-                    if (!searchStr.includes(search)) return false;
-                }
-                return true;
-            });
+// Function to get images for a vehicle based on its imageCount
+function getImages(v) {
+  // If vehicle has custom images array, use that
+  if (v.images && v.images.length > 0) {
+    return v.images;
+  }
+  // Otherwise build from VIN and imageCount
+  var imgs = [];
+  var count = v.imageCount || 1;
+  if (count >= 1) imgs.push(B + v.vin + ".jpg");
+  for (var i = 2; i <= count; i++) {
+    imgs.push(B + v.vin + "_" + i + ".jpg");
+  }
+  return imgs;
+}
 
-            renderVehicleGrid(filtered);
-        }
+// ─── PERSISTENCE ───────────────────────────────────────────
+(function() {
+  var s = localStorage.getItem('csc_db');
+  if (s) DB = JSON.parse(s);
+})();
+function save() {
+  localStorage.setItem('csc_db', JSON.stringify(DB));
+}
 
-        // Render vehicle grid
-        function renderVehicleGrid(vehicles = null) {
-            const grid = document.getElementById('vehicle-grid');
-            const resultsCount = document.getElementById('results-count');
-            const displayVehicles = vehicles || vehicleDatabase.filter(v => v.type !== 'golfcart');
-            
-            resultsCount.textContent = `Showing ${displayVehicles.length} vehicle${displayVehicles.length !== 1 ? 's' : ''}`;
+// Set hero background to a golf cart image
+(function() {
+  var golfCart = DB.find(function(v) { return v.type === 'golfcart'; });
+  if (golfCart) {
+    var imgs = getImages(golfCart);
+    if (imgs[0]) {
+      document.getElementById('hero-bg').style.backgroundImage = "url('" + imgs[0] + "')";
+    }
+  }
+  // Set about section images to a nice golf cart
+  var aboutImg = document.getElementById('about-img');
+  var aboutImg2 = document.getElementById('about-img-2');
+  if (golfCart) {
+    var imgs = getImages(golfCart);
+    if (aboutImg) aboutImg.src = imgs[0];
+    if (aboutImg2) aboutImg2.src = imgs[0];
+  }
+})();
 
-            if (displayVehicles.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; font-size: 1.1rem; color: var(--medium-gray);">No vehicles match your search criteria.</p>';
-                return;
-            }
+// ─── PAGE NAV ──────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('nav a').forEach(function(a) { a.classList.remove('active'); });
+  
+  var pageEl = document.getElementById('page-' + id);
+  if (pageEl) {
+    pageEl.classList.add('active');
+  }
+  
+  var navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  
+  window.scrollTo(0, 0);
+  
+  if (id === 'vehicles') { populateFilters(); applyFilters(); }
+  if (id === 'golf') renderGolf();
+  if (id === 'new') renderNew();
+}
 
-            grid.innerHTML = displayVehicles.map(v => `
-                <div class="vehicle-card" onclick="showVehicleDetail(${v.id})">
-                    <div class="vehicle-image-container">
-                        <div class="vehicle-type-badge">${v.type === 'cars' ? 'CAR' : v.type === 'trucks' ? 'TRUCK' : 'SUV'}</div>
-                        <img src="${v.image}" alt="${v.year} ${v.make} ${v.model}" class="vehicle-image-real">
-                    </div>
-                    <div class="vehicle-info">
-                        <div class="vehicle-title">${v.year} ${v.make} ${v.model}</div>
-                        <div class="vehicle-details">
-                            ${v.color ? '🎨 ' + v.color : ''}${v.color && v.mileage ? ' • ' : ''}${v.mileage ? '📏 ' + v.mileage + ' mi' : ''}<br>
-                            ${v.engine ? '🔧 ' + v.engine : ''}${v.engine && v.drivetrain ? ' • ' : ''}${v.drivetrain || ''}
-                        </div>
-                        <div class="vehicle-price">$${typeof v.price === 'number' ? v.price.toLocaleString() : v.price}</div>
-                        <a href="#" class="view-details-btn" onclick="event.stopPropagation()">View Details</a>
-                    </div>
-                </div>
-            `).join('');
-        }
+// ─── FILTERS ───────────────────────────────────────────────
+function populateFilters() {
+  var makes = [...new Set(DB.filter(function(v) { return v.type !== 'golfcart'; }).map(function(v) { return v.make; }))].sort();
+  var sel = document.getElementById('f-make');
+  sel.innerHTML = '<option value="">All Makes</option>' + makes.map(function(m) { return '<option value="' + m + '">' + m + '</option>'; }).join('');
+}
 
-        // Render golf cart grid
-        function renderGolfCartGrid() {
-            const grid = document.getElementById('golf-cart-grid');
-            const carts = vehicleDatabase.filter(v => v.type === 'golfcart');
-            
-            if (carts.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 3rem; font-size: 1.1rem; color: var(--medium-gray);">No golf carts currently available. Call us for availability!</p>';
-                return;
-            }
+function applyFilters() {
+  var t = document.getElementById('f-type').value;
+  var m = document.getElementById('f-make').value.toLowerCase();
+  var px = parseInt(document.getElementById('f-price').value) || Infinity;
+  var s = document.getElementById('f-search').value.toLowerCase();
+  
+  var r = DB.filter(function(v) {
+    if (v.type === 'golfcart') return false;
+    if (t && v.type !== t) return false;
+    if (m && v.make.toLowerCase() !== m) return false;
+    if (typeof v.price === 'number' && v.price > px) return false;
+    if (s && !(v.year + ' ' + v.make + ' ' + v.model + ' ' + (v.color || '')).toLowerCase().includes(s)) return false;
+    return true;
+  });
+  
+  document.getElementById('res-count').textContent = 'Showing ' + r.length + ' vehicle' + (r.length !== 1 ? 's' : '');
+  document.getElementById('veh-grid').innerHTML = r.map(function(v) { return cardHTML(v); }).join('');
+}
 
-            grid.innerHTML = carts.map(v => `
-                <div class="vehicle-card" onclick="showVehicleDetail(${v.id})">
-                    <div class="vehicle-image-container">
-                        <div class="vehicle-type-badge">GOLF CART</div>
-                        <img src="${v.image}" alt="${v.year} ${v.make} ${v.model}" class="vehicle-image-real">
-                    </div>
-                    <div class="vehicle-info">
-                        <div class="vehicle-title">${v.year} ${v.make} ${v.model}</div>
-                        <div class="vehicle-details">
-                            ${v.color ? '🎨 ' + v.color : ''}${v.color && v.engine ? ' • ' : ''}${v.engine || ''}
-                        </div>
-                        <div class="vehicle-price">$${typeof v.price === 'number' ? v.price.toLocaleString() : v.price}</div>
-                        <a href="#" class="view-details-btn" onclick="event.stopPropagation()">View Details</a>
-                    </div>
-                </div>
-            `).join('');
-        }
+function renderGolf() {
+  document.getElementById('golf-grid').innerHTML = DB.filter(function(v) { return v.type === 'golfcart'; }).map(function(v) { return cardHTML(v, 'GOLF CART'); }).join('');
+}
 
-        // Show vehicle detail
-        function showVehicleDetail(id) {
-            const vehicle = vehicleDatabase.find(v => v.id === id);
-            if (!vehicle) return;
+function renderNew() {
+  var arr = DB.filter(function(v) { return v.newArrival; });
+  document.getElementById('new-grid').innerHTML = arr.length
+    ? arr.map(function(v) { return cardHTML(v); }).join('')
+    : '<p style="text-align:center;padding:3rem;color:var(--mg);grid-column:1/-1">No new arrivals right now — check back soon!</p>';
+}
 
-            const detailPage = document.getElementById('detail-page');
-            
-            // Calculate monthly payment
-            const price = typeof vehicle.price === 'number' ? vehicle.price : 0;
-            const downPayment = price * 0.1;
-            const loanAmount = price - downPayment;
-            const rate = 5.0;
-            const months = 60;
-            const monthlyRate = (rate / 100) / 12;
-            const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+// ─── CARD HTML ─────────────────────────────────────────────
+function cardHTML(v, forceBadge) {
+  var badge = forceBadge || (v.type === 'cars' ? 'CAR' : v.type === 'trucks' ? 'TRUCK' : v.type === 'suv' ? 'SUV' : 'GOLF CART');
+  var imgs = getImages(v);
+  var isNew = v.newArrival;
+  var priceDisplay = typeof v.price === 'number' ? '$' + v.price.toLocaleString() : v.price;
+  
+  return '<div class="v-card">' +
+    '<div class="v-img-wrap">' +
+      '<div class="v-badge' + (isNew ? ' new-badge' : '') + '">' + (isNew ? '★ NEW ' : '') + badge + '</div>' +
+      '<img src="' + (imgs[0] || '') + '" alt="' + v.year + ' ' + v.make + ' ' + v.model + '" loading="lazy">' +
+    '</div>' +
+    '<div class="v-info">' +
+      '<div class="v-title">' + v.year + ' ' + v.make + ' ' + v.model + '</div>' +
+      '<div class="v-details">' +
+        (v.color ? '🎨 ' + v.color : '') + ((v.color && v.mileage && v.mileage !== '0') ? ' • ' : '') +
+        (v.mileage && v.mileage !== '0' ? '📏 ' + v.mileage + ' mi' : '') + '<br>' +
+        (v.engine ? '🔧 ' + v.engine : '') + ((v.engine && v.drivetrain) ? ' • ' : '') +
+        (v.drivetrain || '') +
+      '</div>' +
+      '<div class="v-price">' + priceDisplay + '</div>' +
+      '<button class="v-btn" onclick="showDetail(' + v.id + ')">View Details</button>' +
+    '</div>' +
+  '</div>';
+}
 
-            // Find similar vehicles
-            const similarVehicles = vehicleDatabase
-                .filter(v => v.id !== id && v.type === vehicle.type && v.type !== 'golfcart')
-                .slice(0, 3);
+// ─── DETAIL PAGE ───────────────────────────────────────────
+var _slide = 0, _imgs = [];
 
-            detailPage.innerHTML = `
-                <div class="detail-container">
-                    <span class="back-button" onclick="goBackFromDetail()">← Back to ${vehicle.type === 'golfcart' ? 'Golf Carts' : 'Vehicles'}</span>
-                    
-                    <h1 class="detail-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h1>
-                    
-                    <div class="detail-grid">
-                        <div class="detail-image-section">
-                            <img src="${vehicle.image}" alt="${vehicle.year} ${vehicle.make} ${vehicle.model}" class="detail-image">
-                        </div>
-                        
-                        <div class="detail-info-section">
-                            <div class="detail-price">$${typeof vehicle.price === 'number' ? vehicle.price.toLocaleString() : vehicle.price}</div>
-                            
-                            <div class="specs-section">
-                                <h3 class="specs-title">Vehicle Specifications</h3>
-                                <div class="specs-grid">
-                                    ${vehicle.stock ? `
-                                    <div class="spec-item">
-                                        <div class="spec-label">Stock Number</div>
-                                        <div class="spec-value">${vehicle.stock}</div>
-                                    </div>
-                                    ` : ''}
-                                    ${vehicle.mileage ? `
-                                    <div class="spec-item">
-                                        <div class="spec-label">Mileage</div>
-                                        <div class="spec-value">${vehicle.mileage} miles</div>
-                                    </div>
-                                    ` : ''}
-                                    ${vehicle.color ? `
-                                    <div class="spec-item">
-                                        <div class="spec-label">Exterior Color</div>
-                                        <div class="spec-value">${vehicle.color}</div>
-                                    </div>
-                                    ` : ''}
-                                    ${vehicle.bodystyle ? `
-                                    <div class="spec-item">
-                                        <div class="spec-label">Body Style</div>
-                                        <div class="spec-value">${vehicle.bodystyle}</div>
-                                    </div>
-                                    ` : ''}
-                                    ${vehicle.engine ? `
-                                    <div class="spec-item">
-                                        <div class="spec-label">Engine</div>
-                                        <div class="spec-value">${vehicle.engine}</div>
-                                    </div>
-                                    ` : ''}
-                                    ${vehicle.drivetrain ? `
-                                    <div class="spec-item">
-                                        <div class="spec-label">Drivetrain</div>
-                                        <div class="spec-value">${vehicle.drivetrain}</div>
-                                    </div>
-                                    ` : ''}
-                                    ${vehicle.vin ? `
-                                    <div class="spec-item">
-                                        <div class="spec-label">VIN</div>
-                                        <div class="spec-value">${vehicle.vin}</div>
-                                    </div>
-                                    ` : ''}
-                                </div>
-                            </div>
+function showDetail(id) {
+  var v = DB.find(function(x) { return x.id === id; });
+  if (!v) return;
+  
+  _imgs = getImages(v);
+  _slide = 0;
 
-                            ${vehicle.description ? `
-                            <div class="specs-section">
-                                <h3 class="specs-title">Description</h3>
-                                <p style="line-height: 1.8; color: var(--medium-gray);">${vehicle.description}</p>
-                            </div>
-                            ` : ''}
+  var price = typeof v.price === 'number' ? v.price : 0;
+  var dp = Math.round(price * 0.1);
+  var loan = price - dp, rate = 5, months = 60;
+  var mr = (rate / 100) / 12;
+  var pmt = mr > 0 ? loan * (mr * Math.pow(1 + mr, months)) / (Math.pow(1 + mr, months) - 1) : loan / months;
 
-                            ${vehicle.features && vehicle.features.length > 0 ? `
-                            <div class="features-section">
-                                <h3 class="specs-title">Features & Options</h3>
-                                <ul class="features-list">
-                                    ${vehicle.features.map(f => `<li>${f}</li>`).join('')}
-                                </ul>
-                            </div>
-                            ` : ''}
+  var similar = DB.filter(function(x) { return x.id !== id && x.type === v.type && x.type !== 'golfcart'; }).slice(0, 3);
+  var backPage = v.type === 'golfcart' ? 'golf' : 'vehicles';
+  var backLabel = v.type === 'golfcart' ? 'Golf Carts' : 'Vehicles';
 
-                            ${typeof vehicle.price === 'number' ? `
-                            <div class="payment-calculator">
-                                <h3 class="calc-title">Payment Calculator</h3>
-                                <label>Down Payment ($):</label>
-                                <input type="number" class="calc-input" id="down-payment" value="${downPayment.toFixed(0)}" step="100" onchange="updatePayment(${vehicle.price})">
-                                <label>Interest Rate (%):</label>
-                                <input type="number" class="calc-input" id="interest-rate" value="5.0" step="0.1" onchange="updatePayment(${vehicle.price})">
-                                <label>Loan Term (months):</label>
-                                <input type="number" class="calc-input" id="loan-term" value="60" onchange="updatePayment(${vehicle.price})">
-                                <div class="calc-result">
-                                    <div class="spec-label">Estimated Monthly Payment</div>
-                                    <div class="monthly-payment" id="monthly-payment">$${monthlyPayment.toFixed(2)}</div>
-                                    <p style="font-size: 0.9rem; color: var(--medium-gray); margin-top: 0.5rem;">*Estimate only. Financing through Scott Credit Union.</p>
-                                </div>
-                            </div>
-                            ` : ''}
+  // Thumbnails
+  var thumbsHtml = _imgs.map(function(img, i) {
+    return '<img src="' + img + '" onclick="goSlide(' + i + ')" class="' + (i === 0 ? 'active' : '') + '">';
+  }).join('');
 
-                            <div class="contact-buttons">
-                                <a href="tel:217-627-2007" class="contact-btn">📞 Call Us: 217-627-2007</a>
-                            </div>
-                        </div>
-                    </div>
+  // Carousel - only show nav buttons if more than 1 image
+  var carH = '<div class="carousel" id="carousel">' +
+    '<img class="carousel-main" id="car-img" src="' + _imgs[0] + '" alt="' + v.year + ' ' + v.make + ' ' + v.model + '">' +
+    (_imgs.length > 1 ? '<button class="car-nav prev" onclick="chgSlide(-1)">&#10094;</button><button class="car-nav next" onclick="chgSlide(1)">&#10095;</button>' : '') +
+    (_imgs.length > 1 ? '<div class="car-counter" id="car-counter">1 / ' + _imgs.length + '</div>' : '') +
+  '</div>' +
+  (_imgs.length > 1 ? '<div class="car-thumbs" id="car-thumbs">' + thumbsHtml + '</div>' : '');
 
-                    ${similarVehicles.length > 0 ? `
-                    <div style="margin-top: 4rem;">
-                        <div class="page-header">
-                            <h2 class="page-title">Similar Vehicles</h2>
-                            <div class="title-divider"></div>
-                        </div>
-                        <div class="inventory-grid">
-                            ${similarVehicles.map(v => `
-                                <div class="vehicle-card" onclick="showVehicleDetail(${v.id})">
-                                    <div class="vehicle-image-container">
-                                        <div class="vehicle-type-badge">${v.type === 'cars' ? 'CAR' : v.type === 'trucks' ? 'TRUCK' : 'SUV'}</div>
-                                        <img src="${v.image}" alt="${v.year} ${v.make} ${v.model}" class="vehicle-image-real">
-                                    </div>
-                                    <div class="vehicle-info">
-                                        <div class="vehicle-title">${v.year} ${v.make} ${v.model}</div>
-                                        <div class="vehicle-details">${v.color ? v.color + ' • ' : ''}${v.mileage ? v.mileage + ' mi' : ''}</div>
-                                        <div class="vehicle-price">$${typeof v.price === 'number' ? v.price.toLocaleString() : v.price}</div>
-                                        <a href="#" class="view-details-btn" onclick="event.stopPropagation()">View Details</a>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    ` : ''}
-                </div>
-            `;
+  // Specs
+  var specsH = '<div class="specs-grid">' +
+    (v.stock ? '<div class="spec-item"><div class="spec-label">Stock #</div><div class="spec-value">' + v.stock + '</div></div>' : '') +
+    (v.mileage && v.mileage !== '0' ? '<div class="spec-item"><div class="spec-label">Mileage</div><div class="spec-value">' + v.mileage + ' mi</div></div>' : '') +
+    (v.color ? '<div class="spec-item"><div class="spec-label">Color</div><div class="spec-value">' + v.color + '</div></div>' : '') +
+    (v.bodystyle ? '<div class="spec-item"><div class="spec-label">Body Style</div><div class="spec-value">' + v.bodystyle + '</div></div>' : '') +
+    (v.engine ? '<div class="spec-item"><div class="spec-label">Engine</div><div class="spec-value">' + v.engine + '</div></div>' : '') +
+    (v.drivetrain ? '<div class="spec-item"><div class="spec-label">Drivetrain</div><div class="spec-value">' + v.drivetrain + '</div></div>' : '') +
+    (v.vin ? '<div class="spec-item" style="grid-column:1/-1"><div class="spec-label">VIN</div><div class="spec-value" style="font-size:.7rem;word-break:break-all">' + v.vin + '</div></div>' : '') +
+  '</div>';
 
-            // Hide pages and show detail
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            detailPage.classList.add('active');
-            window.scrollTo(0, 0);
-        }
+  var priceDisplay = typeof v.price === 'number' ? '$' + v.price.toLocaleString() : v.price;
+  var calcH = price ? '<div class="calc-box"><h4>Payment Calculator</h4>' +
+    '<label>Down Payment ($)</label><input type="number" id="dp" value="' + dp + '" step="100" oninput="calcPmt(' + price + ')">' +
+    '<label>Interest Rate (%)</label><input type="number" id="ir" value="5" step="0.1" oninput="calcPmt(' + price + ')">' +
+    '<label>Loan Term (months)</label><input type="number" id="lt" value="60" oninput="calcPmt(' + price + ')">' +
+    '<div class="calc-result"><div class="spec-label">Estimated Monthly Payment</div><div class="monthly" id="monthly">$' + pmt.toFixed(2) + '</div><div class="calc-note">*Estimate only. Financing through Scott Credit Union.</div></div></div>' : '';
 
-        // Go back from detail
-        function goBackFromDetail() {
-            const vehicle = vehicleDatabase.find(v => v.id);
-            document.getElementById('detail-page').classList.remove('active');
-            
-            // Determine which page to return to
-            const activeNav = document.querySelector('nav a.active');
-            if (activeNav) {
-                activeNav.click();
-            } else {
-                showPage('vehicles');
-            }
-        }
+  var html =
+    '<div class="detail-container">' +
+      '<button class="back-btn" onclick="showPage(\'' + backPage + '\')">← Back to ' + backLabel + '</button>' +
+      '<div class="detail-title">' + v.year + ' ' + v.make + ' ' + v.model + '</div>' +
+      '<div class="detail-grid">' +
+        '<div>' + carH + '</div>' +
+        '<div>' +
+          '<div class="d-price">' + priceDisplay + '</div>' +
+          '<div class="specs-title">Specifications</div>' + specsH +
+          (v.description ? '<div class="specs-title">Description</div><div class="d-desc">' + v.description + '</div>' : '') +
+          (v.features && v.features.length ? '<div class="specs-title">Features</div><ul class="feat-list">' + v.features.map(function(f) { return '<li>' + f + '</li>'; }).join('') + '</ul>' : '') +
+          calcH +
+          '<button class="call-btn" onclick="location.href=\'tel:2176272007\'">📞 Call Us: 217-627-2007</button>' +
+        '</div>' +
+      '</div>';
 
-        // Update payment calculator
-        function updatePayment(price) {
-            const downPayment = parseFloat(document.getElementById('down-payment').value) || 0;
-            const rate = parseFloat(document.getElementById('interest-rate').value) || 5.0;
-            const months = parseFloat(document.getElementById('loan-term').value) || 60;
-            
-            const loanAmount = price - downPayment;
-            const monthlyRate = (rate / 100) / 12;
-            const payment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
-            
-            document.getElementById('monthly-payment').textContent = '$' + payment.toFixed(2);
-        }
+  if (similar.length) {
+    html += '<div style="margin-top:2rem"><div class="ph"><h2 style="font-size:1.35rem">Similar Vehicles</h2><div class="ph-div"></div></div>' +
+      '<div class="inv-grid">' + similar.map(function(s) { return cardHTML(s); }).join('') + '</div></div>';
+  }
+  html += '</div>';
 
-        // Admin Panel Functions
-        function openAdminPanel() {
-            document.getElementById('admin-panel').classList.add('active');
-            refreshVehicleList();
-        }
+  document.getElementById('page-detail').innerHTML = html;
+  
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('nav a').forEach(function(a) { a.classList.remove('active'); });
+  document.getElementById('page-detail').classList.add('active');
+  window.scrollTo(0, 0);
+}
 
-        function closeAdminPanel() {
-            document.getElementById('admin-panel').classList.remove('active');
-        }
+// Carousel controls
+function chgSlide(dir) {
+  _slide = (_slide + dir + _imgs.length) % _imgs.length;
+  updSlide();
+}
 
-        function showAdminTab(tab) {
-            const tabs = document.querySelectorAll('.admin-tab');
-            const sections = document.querySelectorAll('.admin-section');
-            
-            tabs.forEach(t => t.classList.remove('active'));
-            sections.forEach(s => s.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById('admin-' + tab).classList.add('active');
-        }
+function goSlide(i) {
+  _slide = i;
+  updSlide();
+}
 
-        // Add vehicle form
-        document.getElementById('add-vehicle-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const newVehicle = {
-                id: Date.now(),
-                year: document.getElementById('add-year').value,
-                make: document.getElementById('add-make').value.toUpperCase(),
-                model: document.getElementById('add-model').value.toUpperCase(),
-                type: document.getElementById('add-type').value,
-                price: document.getElementById('add-price').value.includes('Call') ? 'Call for Price' : parseFloat(document.getElementById('add-price').value),
-                color: document.getElementById('add-color').value,
-                mileage: document.getElementById('add-mileage').value,
-                engine: document.getElementById('add-engine').value,
-                drivetrain: document.getElementById('add-drivetrain').value,
-                bodystyle: document.getElementById('add-bodystyle').value,
-                vin: document.getElementById('add-vin').value,
-                stock: document.getElementById('add-stock').value,
-                image: document.getElementById('add-image').value,
-                features: document.getElementById('add-features').value.split('\n').filter(f => f.trim()),
-                description: document.getElementById('add-description').value
-            };
-            
-            vehicleDatabase.push(newVehicle);
-            saveVehicles();
-            populateFilters();
-            applyFilters();
-            renderGolfCartGrid();
-            
-            alert('Vehicle added successfully!');
-            this.reset();
-            refreshVehicleList();
-        });
+function updSlide() {
+  var img = document.getElementById('car-img');
+  var counter = document.getElementById('car-counter');
+  var thumbs = document.querySelectorAll('#car-thumbs img');
+  
+  if (img) img.src = _imgs[_slide];
+  if (counter) counter.textContent = (_slide + 1) + ' / ' + _imgs.length;
+  thumbs.forEach(function(t, i) { t.classList.toggle('active', i === _slide); });
+}
 
-        function refreshVehicleList() {
-            const list = document.getElementById('vehicle-list');
-            list.innerHTML = vehicleDatabase.map(v => `
-                <div class="vehicle-item">
-                    <div>
-                        <strong>${v.year} ${v.make} ${v.model}</strong><br>
-                        <small>Stock: ${v.stock} | Type: ${v.type} | Price: $${typeof v.price === 'number' ? v.price.toLocaleString() : v.price}</small>
-                    </div>
-                    <div>
-                        <button class="edit-btn" onclick="editVehicle(${v.id})">Edit</button>
-                        <button class="delete-btn" onclick="deleteVehicle(${v.id})">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
+function calcPmt(price) {
+  var dp = parseFloat(document.getElementById('dp').value) || 0;
+  var r = parseFloat(document.getElementById('ir').value) || 5;
+  var m = parseFloat(document.getElementById('lt').value) || 60;
+  var loan = price - dp;
+  var mr = (r / 100) / 12;
+  var pmt = mr > 0 ? loan * (mr * Math.pow(1 + mr, m)) / (Math.pow(1 + mr, m) - 1) : loan / m;
+  document.getElementById('monthly').textContent = '$' + pmt.toFixed(2);
+}
 
-        function deleteVehicle(id) {
-            if (confirm('Are you sure you want to delete this vehicle?')) {
-                vehicleDatabase = vehicleDatabase.filter(v => v.id !== id);
-                saveVehicles();
-                populateFilters();
-                applyFilters();
-                renderGolfCartGrid();
-                refreshVehicleList();
-            }
-        }
+// ─── LOGIN ─────────────────────────────────────────────────
+function openLogin() {
+  document.getElementById('login-overlay').classList.add('show');
+  setTimeout(function() { document.getElementById('login-user').focus(); }, 60);
+}
 
-        function editVehicle(id) {
-            const vehicle = vehicleDatabase.find(v => v.id === id);
-            if (!vehicle) return;
-            
-            document.getElementById('add-year').value = vehicle.year;
-            document.getElementById('add-make').value = vehicle.make;
-            document.getElementById('add-model').value = vehicle.model;
-            document.getElementById('add-type').value = vehicle.type;
-            document.getElementById('add-price').value = vehicle.price;
-            document.getElementById('add-color').value = vehicle.color;
-            document.getElementById('add-mileage').value = vehicle.mileage;
-            document.getElementById('add-engine').value = vehicle.engine;
-            document.getElementById('add-drivetrain').value = vehicle.drivetrain;
-            document.getElementById('add-bodystyle').value = vehicle.bodystyle;
-            document.getElementById('add-vin').value = vehicle.vin;
-            document.getElementById('add-stock').value = vehicle.stock;
-            document.getElementById('add-image').value = vehicle.image;
-            document.getElementById('add-features').value = vehicle.features.join('\n');
-            document.getElementById('add-description').value = vehicle.description;
-            
-            deleteVehicle(id);
-            document.querySelectorAll('.admin-tab')[0].click();
-            alert('Vehicle loaded for editing. Make changes and click "Add Vehicle" to save.');
-        }
+function closeLogin() {
+  document.getElementById('login-overlay').classList.remove('show');
+  document.getElementById('login-err').textContent = '';
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+}
 
-        function exportData() {
-            document.getElementById('import-export-data').value = JSON.stringify(vehicleDatabase, null, 2);
-            alert('Data exported! Copy the text and save it somewhere safe.');
-        }
+function attemptLogin() {
+  var user = document.getElementById('login-user').value;
+  var pass = document.getElementById('login-pass').value;
+  
+  if (user === '12345' && pass === '12345') {
+    closeLogin();
+    document.getElementById('admin-panel').classList.add('open');
+    refreshManage();
+  } else {
+    document.getElementById('login-err').textContent = 'Invalid username or password';
+  }
+}
 
-        function importData() {
-            try {
-                const data = JSON.parse(document.getElementById('import-export-data').value);
-                if (confirm('This will replace all current vehicles. Are you sure?')) {
-                    vehicleDatabase = data;
-                    saveVehicles();
-                    populateFilters();
-                    applyFilters();
-                    renderGolfCartGrid();
-                    refreshVehicleList();
-                    alert('Data imported successfully!');
-                }
-            } catch (e) {
-                alert('Error importing data. Please check the format.');
-            }
-        }
-    </script>
+// ─── ADMIN ─────────────────────────────────────────────────
+function closeAdmin() {
+  document.getElementById('admin-panel').classList.remove('open');
+}
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.admin-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.admin-sec').forEach(function(s) { s.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('sec-' + id).classList.add('active');
+  if (id === 'manage') refreshManage();
+}
+
+document.getElementById('add-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var rawImgs = document.getElementById('a-imgs').value.split('\n').map(function(s) { return s.trim(); }).filter(Boolean);
+  var priceVal = document.getElementById('a-price').value;
+  
+  var v = {
+    id: Date.now(),
+    year: document.getElementById('a-year').value,
+    make: document.getElementById('a-make').value.toUpperCase(),
+    model: document.getElementById('a-model').value.toUpperCase(),
+    type: document.getElementById('a-type').value,
+    price: priceVal.toLowerCase().includes('call') ? 'Call for Price' : parseFloat(priceVal),
+    color: document.getElementById('a-color').value,
+    mileage: document.getElementById('a-mileage').value,
+    engine: document.getElementById('a-engine').value,
+    drivetrain: document.getElementById('a-drive').value,
+    bodystyle: document.getElementById('a-body').value,
+    vin: document.getElementById('a-vin').value,
+    stock: document.getElementById('a-stock').value,
+    images: rawImgs,
+    imageCount: rawImgs.length || 1,
+    features: document.getElementById('a-feat').value.split('\n').map(function(s) { return s.trim(); }).filter(Boolean),
+    description: document.getElementById('a-desc').value,
+    newArrival: document.getElementById('a-new').checked
+  };
+  
+  DB.push(v);
+  save();
+  alert('Vehicle added successfully!');
+  this.reset();
+  document.getElementById('a-new').checked = false;
+});
+
+function refreshManage() {
+  document.getElementById('manage-list').innerHTML = DB.map(function(v) {
+    var priceDisplay = typeof v.price === 'number' ? '$' + v.price.toLocaleString() : v.price;
+    return '<div class="v-list-item">' +
+      '<div><strong>' + v.year + ' ' + v.make + ' ' + v.model + '</strong><br>' +
+        '<small>Stock: ' + (v.stock || '—') + ' | ' + v.type + ' | ' + priceDisplay +
+        (v.newArrival ? ' | ⭐ NEW' : '') + '</small></div>' +
+      '<div class="btn-row">' +
+        '<button class="edit-btn" onclick="editVehicle(' + v.id + ')">Edit</button>' +
+        '<button class="del-btn" onclick="delVehicle(' + v.id + ')">Delete</button>' +
+      '</div></div>';
+  }).join('');
+}
+
+function delVehicle(id) {
+  if (!confirm('Delete this vehicle?')) return;
+  DB = DB.filter(function(v) { return v.id !== id; });
+  save();
+  refreshManage();
+}
+
+function editVehicle(id) {
+  var v = DB.find(function(x) { return x.id === id; });
+  if (!v) return;
+  
+  document.getElementById('a-year').value = v.year;
+  document.getElementById('a-make').value = v.make;
+  document.getElementById('a-model').value = v.model;
+  document.getElementById('a-type').value = v.type;
+  document.getElementById('a-price').value = v.price;
+  document.getElementById('a-color').value = v.color || '';
+  document.getElementById('a-mileage').value = v.mileage || '';
+  document.getElementById('a-engine').value = v.engine || '';
+  document.getElementById('a-drive').value = v.drivetrain || '';
+  document.getElementById('a-body').value = v.bodystyle || '';
+  document.getElementById('a-vin').value = v.vin || '';
+  document.getElementById('a-stock').value = v.stock || '';
+  var imgs = v.images || getImages(v);
+  document.getElementById('a-imgs').value = imgs.join('\n');
+  document.getElementById('a-feat').value = (v.features || []).join('\n');
+  document.getElementById('a-desc').value = v.description || '';
+  document.getElementById('a-new').checked = !!v.newArrival;
+  
+  DB = DB.filter(function(x) { return x.id !== id; });
+  save();
+  switchTab(document.querySelectorAll('.admin-tab')[0], 'add');
+  alert('Loaded for editing. Update and click "Add Vehicle" to save.');
+}
+
+function exportData() {
+  document.getElementById('ie-data').value = JSON.stringify(DB, null, 2);
+  alert('Exported!');
+}
+
+function importData() {
+  try {
+    var d = JSON.parse(document.getElementById('ie-data').value);
+    if (!confirm('Replace all inventory?')) return;
+    DB = d;
+    save();
+    refreshManage();
+    alert('Import successful!');
+  } catch (e) {
+    alert('Invalid JSON');
+  }
+}
+</script>
 </body>
 </html>
